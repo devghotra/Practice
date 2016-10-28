@@ -5,8 +5,6 @@ import java.util.List;
 
 public class CoinSumInfinite {
 	
-	static int iter = 0;
-	
 	static Integer[][] store;
 
 	public static void main(String[] args) {
@@ -31,7 +29,6 @@ public class CoinSumInfinite {
 	}
 	
 	public static int coinchangeDynamic(List<Integer> coins, int totalNumOfCoins, int sum) {
-		iter = 0;
 		/*
 		 * coin	0	1	2	3	4	5 <- sum
 			0	0	0	0	0	0	0
@@ -54,7 +51,6 @@ public class CoinSumInfinite {
 		
 		for(int coinNum=1; coinNum<=coins.size(); coinNum++){
 			for(int partialSum=1; partialSum<=sum; partialSum++){
-				iter++;
 				if(coins.get(coinNum-1) > partialSum){
 					memo[coinNum][partialSum] = memo[coinNum-1][partialSum];
 				} else{
@@ -63,7 +59,6 @@ public class CoinSumInfinite {
 			}
 		}
 		
-		System.out.println("DP iter - "+iter);
 		return memo[totalNumOfCoins][sum];
 	}
 	
@@ -74,9 +69,7 @@ public class CoinSumInfinite {
 		 * doesn't work - keeps running
 		 */
 		
-		iter++;
-		
-		System.out.println("iter "+iter+" Sum "+sum+" Coin "+coinNum);
+		//System.out.println("iter "+iter+" Sum "+sum+" Coin "+coinNum);
 		
 		if(store == null){
 			store = new Integer[coins.size()+1][sum+1];

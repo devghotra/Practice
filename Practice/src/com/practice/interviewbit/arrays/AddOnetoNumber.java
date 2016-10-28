@@ -10,15 +10,60 @@ import java.util.List;
 public class AddOnetoNumber {
 
 	public static void main(String[] args) {
-		Integer[] arr = {0};
+		Integer[] arr = {9, 9, 9, 9, 9};
 		List<Integer> a = Arrays.asList(arr);
 		
 		
 		List<Integer> b = plusOne(a);
 		System.out.println(b);
 		
+		b = plusOneV1(a);
+		System.out.println(b);
+		
 	}
 	
+	/*accepted by interview bit*/
+	public static List<Integer> plusOneV1(List<Integer> a) {
+		if(a == null || a.isEmpty())
+			return a;
+		
+		Integer[] b = new Integer[a.size()];
+		
+		int carry = 1;
+		for(int i=a.size()-1; i >= 0; i--){
+			int digit = a.get(i);
+			
+			int sum = digit+carry;
+			if(sum == 10){
+				b[i] = 0;
+				carry = 1;
+			} else{
+				b[i] = sum;
+				carry = 0;
+			}
+		}
+		
+		List<Integer> resultList = new ArrayList<>();
+		if(carry == 1){
+			resultList.add(1);
+			for(int i=0; i < b.length; i++){
+				resultList.add(b[i]);
+			}
+		} else{
+			boolean removeZero = true;
+			for(int i=0; i < b.length; i++){
+				if(b[i] != 0 || !removeZero){
+					removeZero = false;
+					resultList.add(b[i]);
+				}
+			}
+		}
+		
+		return resultList;
+		
+	}
+	
+	/* correct solution but not accepted by interview bit*/
 	public static List<Integer> plusOne(List<Integer> a) {
 		
 		if(a == null || a.isEmpty())
@@ -45,33 +90,5 @@ public class AddOnetoNumber {
 		
 		return b;
 	}
-	
-	/*
-	 * 
-	 * boolean start = false;
-		for(int i=0; i < a.size(); i++){
-			
-			if(!start && a.get(i) == 0){
-				continue;
-			}
-			
-			start = true;
-			
-			int pow = a.size() - 1 - i;
-			BigDecimal divideBy = new BigDecimal(Math.pow(10, pow), MathContext.DECIMAL128);
-			
-			BigInteger digit = number.divide(divideBy.toBigInteger());
-			
-			b.add(digit.intValue());
-			
-			
-			number = number.remainder(divideBy.toBigInteger());
-		}
-		
-		if(!b.isEmpty() && b.get(0) == 10){
-			b.set(0, 0);
-			b.add(0, 1);
-		}
-	 */
 
 }

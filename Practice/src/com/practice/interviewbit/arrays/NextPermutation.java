@@ -16,12 +16,26 @@ public class NextPermutation {
 		
 		System.out.println(a);
 	}
+	/*
+	input : 645321
+	index : 1
+	sublist : 45321
+	sorted sublist : 12345
+	Going backwards and finding pos of 5 : 51234
+
+	Original list : 651234
+
+	sublist is part of original list, not a new one - changes to sublist will cause changes to original list.
+	 */
 	
 	public static void nextPermutation(List<Integer> a) {
 		if(a.size() < 2){
 			return;
 		}
 		
+		// starting from end find a number which is greater than previous number
+		// number - number greater than previous & index - index of number
+		// if no such number found than list is in desc order and there is no greater permutation
 		boolean arranged = false;
 		int index = -1;
 		int number = 0;
@@ -40,9 +54,13 @@ public class NextPermutation {
 			
 		}
 		
+		// if no number is found from above, sort list in asc order to get next permutation
 		if(!arranged){
 			Collections.sort(a);
 		} else{
+			// create a sublist(part of same list, not new one) starting from index to end and sort
+		    // find the number greater than number found above and 
+		    // go backwards in sublist to find its position that gives next permutation
 			List<Integer> subList = a.subList(index, a.size());
 			Collections.sort(subList);
 			for(int i=0;i<subList.size();i++){
