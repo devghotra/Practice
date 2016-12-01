@@ -58,40 +58,31 @@ public class CaptureRegionsOnBoard {
 	}
 	
 	public static void bfs(ArrayList<ArrayList<Character>> board, int row, int col){
-		int numRows = board.size();
-		int numCols = board.get(0).size();
-		
-		LinkedList<Integer> queue = new LinkedList<Integer>();
-		int index = row*numCols + col;
-		board.get(row).set(col, '#');
-		queue.add(index);
+		LinkedList<Node> queue = new LinkedList<Node>();
+		queue.add(new Node(row, col));
 		
 		while(!queue.isEmpty()){
-			int indexPos = queue.poll();
-			int i = indexPos/numCols;
-			int j = indexPos%numCols;
+			Node n = queue.poll();
 			
-			if(i-1 >= 0 && board.get(i-1).get(j)=='O'){
-			    board.get(i-1).set(j, '#');
-				queue.add((i-1)*numCols+j);
-			}
+			if(n.x < 0 || n.x == board.size() || n.y < 0 || n.y == board.get(0).size() || board.get(n.x).get(n.y) == '#' || board.get(n.x).get(n.y) == 'X')
+				continue;
 			
-			if(i+1 < numRows && board.get(i+1).get(j)=='O'){
-			    board.get(i+1).set(j, '#');
-				queue.add((i+1)*numCols+j);
-			}
+			board.get(n.x).set(n.y, '#');
 			
-			if(j-1 >= 0 && board.get(i).get(j-1)=='O'){
-			    board.get(i).set(j-1, '#');
-				queue.add(i*numCols+j-1);
-			}
-			
-			if(j+1 < numCols && board.get(i).get(j+1)=='O'){
-			    board.get(i).set(j+1, '#');
-				queue.add(i*numCols+j+1);
-			}
+			queue.add(new Node(n.x-1, n.y));
+			queue.add(new Node(n.x+1, n.y));
+			queue.add(new Node(n.x, n.y-1));
+			queue.add(new Node(n.x, n.y+1));
 			
 		}
 	}
 
+	static class Node{
+		int x; int y;
+		Node(int x, int y){
+			this.x = x;
+			this.y = y;
+		}
+	}
 }
+

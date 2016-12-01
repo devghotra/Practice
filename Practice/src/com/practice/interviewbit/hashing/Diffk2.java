@@ -2,6 +2,7 @@ package com.practice.interviewbit.hashing;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +16,21 @@ public class Diffk2 {
 		System.out.println(diff.diffPossible(Arrays.asList(input), 0));
 
 	}
+	
+	public int diffPossible(final List<Integer> input, int k) {
+		HashSet<Integer> set = new HashSet<>();
+		for (Integer i : input) {
+			if (set.contains(i)) {
+				return 1;
+			}
+			if (i < k) {
+				set.add(i + k);
+			} else {
+				set.add(i - k);
+			}
+		}
+		return 0;
+	}
 
 	/*
 	 * Given an array A of integers and another non negative integer k,
@@ -26,7 +42,7 @@ public class Diffk2 {
 	 * 
 	 * 
 	 */
-	public int diffPossible(final List<Integer> input, int k) {
+	public int diffPossibleV0(final List<Integer> input, int k) {
 
 		Map<Integer,Integer> map = new HashMap<>();
 		for (int i = 0; i < input.size(); i++) {

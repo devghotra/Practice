@@ -35,10 +35,11 @@ public class BlackShapes {
 			i++;
 		}
 
-		return countUsingQueue(arr);
+		return dfs(arr);
 	}
 	
-	public static int countUsingStack(int [][]arr) {
+	// clean it up - do same as CaptureRegionsOnBoard - use Node
+	public static int dfs(int [][]arr) {
 		int count = 0;
 		for(int i=0; i<arr.length; i++){
 			for(int j=0; j<arr[i].length; j++){
@@ -82,54 +83,6 @@ public class BlackShapes {
 						}
 						
 						stack.pop();
-					}
-					
-					count++;
-				}
-			}
-		}
-		
-		return count;
-	}
-	
-	public static int countUsingQueue(int [][]arr) {
-		int count = 0;
-		for(int i=0; i<arr.length; i++){
-			for(int j=0; j<arr[i].length; j++){
-				if(arr[i][j] == 1){
-					Queue<String> queue = new LinkedList<>();
-					queue.add(i+","+j);
-					arr[i][j] = 0;
-					
-					while(!queue.isEmpty()){
-						String pos = queue.poll();
-						String[] posArr = pos.split(",");
-						int r = Integer.valueOf(posArr[0]);
-						int c = Integer.valueOf(posArr[1]);
-						
-						int left = c-1>=0 ? arr[r][c-1] : 0; 
-						if(left == 1){
-							queue.add(r+","+(c-1));
-							arr[r][c-1] = 0;
-						}
-						
-						int right = c+1<arr[r].length ? arr[r][c+1] : 0; 
-						if(right == 1){
-							queue.add(r+","+(c+1));
-							arr[r][c+1] = 0;
-						}
-						
-						int up = r-1>=0 ? arr[r-1][c] : 0; 
-						if(up == 1){
-							queue.add((r-1)+","+c);
-							arr[r-1][c] = 0;
-						}
-						
-						int down = r+1<arr.length ? arr[r+1][c] : 0;
-						if(down == 1){
-							queue.add((r+1)+","+c);
-							arr[r+1][c] = 0;
-						}
 					}
 					
 					count++;
