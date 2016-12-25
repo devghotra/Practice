@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SpriralOrderMatrix {
-	// DO NOT MODIFY THE LIST
+		
 		public ArrayList<Integer> spiralOrder(final List<ArrayList<Integer>> a) {
 			 ArrayList<Integer> result = new ArrayList<Integer>();
 			 
@@ -20,30 +20,34 @@ public class SpriralOrderMatrix {
 			 int i = 0;
 			 while(i < rows/2 && i < cols/2){
 			     
-			     List<Integer> h1 = a.get(i);
-			     for(int j = i; j < h1.size()-i; j++){
-			         result.add(h1.get(j));
+				 // top row
+			     List<Integer> tr = a.get(i);
+			     for(int j = i; j < tr.size()-i; j++){
+			         result.add(tr.get(j));
 			     }
 			     
+			     // right col
 			     for(int k = i+1; k < m-i; k++){
-			         List<Integer> h2 = a.get(k);
-			         result.add(h2.get(n-1-i));
+			         List<Integer> rc = a.get(k);
+			         result.add(rc.get(n-1-i));
 			     }
 			     
+			     // bottom row
 			     // 1+2*i rows are already processed 
-			     if(m-1-2*i > 0){
-			    	 List<Integer> h3 = a.get(m-1-i);
-				     for(int l = h3.size()-1-i-1; l >= i; l--){
-				         result.add(h3.get(l));
+			     if(m > 1+2*i){
+			    	 List<Integer> br = a.get(m-1-i);
+				     for(int l = br.size()-1-i-1; l >= i; l--){
+				         result.add(br.get(l));
 				     }
 			     }
 			     
 			     
+			     // left col
 			     // 1+2*i columns are already processed 
-			     if(n-1-2*i > 0){
+			     if(n > 1+2*i){
 			    	 for(int p = m-1-i-1; p > i; p--){
-				         List<Integer> h4 = a.get(p);
-				         result.add(h4.get(i));
+				         List<Integer> lc = a.get(p);
+				         result.add(lc.get(i));
 				     }
 			     }
 			     

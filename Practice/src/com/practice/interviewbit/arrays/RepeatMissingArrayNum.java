@@ -11,9 +11,9 @@ public class RepeatMissingArrayNum {
 
 	}
 	
-	public List<Integer> repeatedNumber(final List<Integer> a) {
+	public List<Integer> repeatedNumber(final List<Integer> nums) {
 		
-		int arraySize = a.size();
+		int arraySize = nums.size();
 		BigInteger arrSum = BigInteger.ZERO;
 		BigInteger arrSumSq = BigInteger.ZERO;
 		
@@ -22,7 +22,7 @@ public class RepeatMissingArrayNum {
 		
 		for(int i = 0; i < arraySize; i++){
 			
-			int num = a.get(i);
+			int num = nums.get(i);
 			arrSum = arrSum.add(BigInteger.valueOf(num));
 			arrSumSq = arrSumSq.add(BigInteger.valueOf(num).multiply(BigInteger.valueOf(num)));
 			
@@ -32,18 +32,18 @@ public class RepeatMissingArrayNum {
 			
 		}
 		
-		BigInteger ypx = idxSumSq.subtract(arrSumSq).divide(idxSum.subtract(arrSum));
-		BigInteger ymx = idxSum.subtract(arrSum);
+		BigInteger apb = idxSumSq.subtract(arrSumSq).divide(idxSum.subtract(arrSum));
+		BigInteger amb = idxSum.subtract(arrSum);
 		
 		
-		BigInteger y = ypx.add(ymx).divide(BigInteger.valueOf(2));
-		BigInteger x = ypx.subtract(y);
+		BigInteger b = apb.add(amb).divide(BigInteger.valueOf(2));
+		BigInteger a = apb.subtract(b);
 		
-		List<Integer> b  = new ArrayList<>();
-		b.add(x.intValue());
-		b.add(y.intValue());
+		List<Integer> res  = new ArrayList<>();
+		res.add(a.intValue());
+		res.add(b.intValue());
 		
-		return b;
+		return res;
 	}
 	
 	

@@ -1,7 +1,6 @@
 package com.practice.interviewbit.arrays;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class KthRowPascalsTriangle {
 	

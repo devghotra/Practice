@@ -24,9 +24,8 @@ public class Flip {
 		int startIndex = 0;
 
 		for (int i = 0; i < arr.length; i++) {
-			int num = Integer.parseInt("" + arr[i]);
-
-			lastSum = num == 0 ? lastSum + 1 : lastSum - 1;
+			
+			lastSum = arr[i] == '0' ? lastSum+1 : lastSum-1;
 
 			if (lastSum > maxSumSoFar) {
 				maxSumSoFar = lastSum;
