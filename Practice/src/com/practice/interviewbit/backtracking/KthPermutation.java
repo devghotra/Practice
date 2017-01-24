@@ -1,4 +1,4 @@
-package com.practice.interview.backtracking;
+package com.practice.interviewbit.backtracking;
 
 import java.math.BigInteger;
 import java.util.ArrayList;

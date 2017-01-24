@@ -22,4 +22,14 @@ public class ListNode {
 		
 		return prev;
 	}
+	
+	public String toString() {
+		return "[val=" + val + ", next=" + next + "]";
+	}
+	
+	public String toString1() {
+		return "[val=" + val+"]";
+	}
+	
+	
 }

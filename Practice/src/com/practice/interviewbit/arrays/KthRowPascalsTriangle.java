@@ -3,53 +3,31 @@ package com.practice.interviewbit.arrays;
 import java.util.ArrayList;
 
 public class KthRowPascalsTriangle {
-	
-	static Integer[][] store = null;
 
 	public static void main(String[] args) {
-		
-		System.out.println(pascalRow(7));
+		System.out.println(pascalRow(3));
+
 	}
 	
-	
-	public static ArrayList<Integer> pascalRow(int a){
-		store = new Integer[a+1][a+1];
-		ArrayList<Integer> arr = new ArrayList<>();
-		for(int i=0; i<=a; i++){
-			arr.add(pascalElement(a, i));
+	public static ArrayList<Integer> pascalRow(int n){
+
+		int[][] pascals = new int[n + 1][n + 1];
+		pascals[0][0] = 1;
+
+		for (int i = 1; i <= n; i++) {
+			pascals[i][0] = 1;
+			for (int j = 1; j <= i; j++) {
+				pascals[i][j] = pascals[i - 1][j - 1] + pascals[i - 1][j];
+			}
+		}
+
+		ArrayList<Integer> res = new ArrayList<>();
+		for(int num : pascals[n]){
+			res.add(num);
 		}
 		
-		return arr;
-	}
+		return res;
 	
-	
-	
-	public static int pascalElement(int k, int pos){
-		if(k==0){
-			if(pos==0)
-				return 1;
-			else
-				return 0;
-		} else{
-			Integer p1 = 0;
-			if(pos-1>=0)
-				p1 = store[k-1][pos-1];
-			if(p1 == null){
-				p1 = pascalElement(k-1, pos-1);
-				store[k-1][pos-1] = p1;
-			}
-			
-			Integer p2 = 0;
-			if(pos>=0)
-				p2 = store[k-1][pos];
-			if(p2 == null){
-				p2 = pascalElement(k-1, pos);
-				store[k-1][pos] = p2;
-			}
-			
-			return p1 + p2;
-		}
-		
 	}
 
 }

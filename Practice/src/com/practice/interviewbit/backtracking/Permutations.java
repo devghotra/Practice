@@ -1,4 +1,4 @@
-package com.practice.interview.backtracking;
+package com.practice.interviewbit.backtracking;
 
 import java.util.ArrayList;
 import java.util.List;

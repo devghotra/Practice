@@ -1,49 +1,38 @@
 package com.practice.interviewbit.linkedlist;
 
 public class MergeTwoSortedList {
-
-	public static void main(String[] args) {
-		
-		
-	}
-	
 	
 	public static ListNode mergeTwoLists(ListNode a, ListNode b) {
-		
 		ListNode head = null;
-		ListNode list1Node = null;
-		ListNode list2Node = null;
 		
 		if(a.val <= b.val){
 			head = a;
-			list1Node = a;
-			list2Node = b;
+			a = a.next;
 		} else{
 			head = b;
-			list1Node = b;
-			list2Node = a;
+			b = b.next;
 		}
 		
-		ListNode prev = null;
-		while(list1Node != null){
-			if(list1Node.val <= list2Node.val){
-				prev = list1Node;
-				list1Node = list1Node.next;
+		ListNode node = head;
+		while(a != null && b != null){
+			if(a.val <= b.val){
+				node.next = a;
+				node = a;
+				a = a.next;
 			} else{
-				prev.next = list2Node;
-				prev = list2Node;
-				ListNode temp = list1Node;
-				list1Node = list2Node.next;
-				list2Node = temp;
+				node.next = b;
+				node = b;
+				b = b.next;
 			}
 		}
 		
-		prev.next = list2Node;
-		
+		if (a == null)
+	        node.next = b;
+	    else
+	        node.next = a;
 		
 		return head;
 	}
-	
 	
 
 }
