@@ -9,15 +9,37 @@ import java.util.List;
 public class HotelPossibleBookings {
 
 	public static void main(String[] args) {
-		Integer[] arrivalArr = {13, 14, 36, 19, 44, 1, 45, 4, 48, 23, 32, 16, 37, 44, 47, 28, 8, 47, 4, 31, 25, 48, 49, 12, 7, 8};
-		Integer[] departArr =  {28, 27, 61, 34, 73, 18, 50, 5, 86, 28, 34, 32, 75, 45, 68, 65, 35, 91, 13, 76, 60, 90, 67, 22, 51, 53};
+		//Integer[] arrivalArr = {13, 14, 36, 19, 44, 1, 45, 4, 48, 23, 32, 16, 37, 44, 47, 28, 8, 47, 4, 31, 25, 48, 49, 12, 7, 8};
+		//Integer[] departArr =  {28, 27, 61, 34, 73, 18, 50, 5, 86, 28, 34, 32, 75, 45, 68, 65, 35, 91, 13, 76, 60, 90, 67, 22, 51, 53};
 		
-		boolean bln = hotel(Arrays.asList(arrivalArr), Arrays.asList(departArr), 23);
+		Integer[] arrivalArr = {40, 18};
+		Integer[] departArr =  {40, 43};
+		
+		
+		boolean bln = hotel(Arrays.asList(arrivalArr), Arrays.asList(departArr), 1);
 		System.out.println(bln);
 		
 	}
 	
+	// solution on IB, seems like not correct
 	public static boolean hotel(List<Integer> arrive, List<Integer> depart, int K) {
+		Collections.sort(arrive);
+		Collections.sort(depart);
+		int ar = 0, de = 0, nos = 0, satisfy = 0;
+		while (ar < arrive.size() && de < depart.size()) {
+			if (arrive.get(ar) < depart.get(de)) {
+				ar++;
+				nos++;
+				satisfy = Math.max(nos, satisfy);
+			} else {
+				de++;
+				nos--;
+			}
+		}
+		return (satisfy <= K) ? true : false;
+	}
+	
+	public static boolean hotel1(List<Integer> arrive, List<Integer> depart, int K) {
 		Comparator<HotelBooking> comparator = new Comparator<HotelBooking>() {
 
 			@Override

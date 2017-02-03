@@ -12,7 +12,7 @@ public class KthPermutation {
 
 	public static void main(String[] args) {
 		KthPermutation kp = new KthPermutation();
-		System.out.println(kp.getPermutation(4, 2));
+		System.out.println(kp.getPermutation(3, 4));
 	}
 
 	public String getPermutation(int n, int k) {
@@ -28,7 +28,10 @@ public class KthPermutation {
 	public String getPermutation(List<Integer> nums, int k) {
 		if (nums.isEmpty())
 			return "";
-
+		
+		// batchSize is number of combinations starting from same digit
+		// for example if n=3 then for each digit there will be 2 combinations where that digit is at beginning
+		// 123,132 & 231,213 & 312,321
 		int batchSize = factorialMap.get(nums.size() - 1);
 
 		int index = 0;

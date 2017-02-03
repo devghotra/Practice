@@ -21,20 +21,20 @@ public class LargestNumber {
 	}
 	
 	public static String largestNumber(final List<Integer> a) {
-		
 		StringBuilder res = new StringBuilder();
 		
 		Collections.sort(a, comparator);
 		
+		boolean allZeros = true;
 		for(Integer num : a){
-			if(num == 0){
-				return "0";
+			if(allZeros && num != 0){
+				allZeros = false;
 			}
 			
 			res.append(num);
 		}
 		
-		return res.toString();
+		return allZeros ? "0" : res.toString();
 	}
 	
 	static Comparator<Integer> comparator = new Comparator<Integer>() {

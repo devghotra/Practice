@@ -14,9 +14,11 @@ public class PalindromeString {
 		int l = 0;
 		int h = input.length()-1;
 		
+		// create a pattern that represents all invalid chars - other than a-z, A-Z and 0-9
 		Pattern p = Pattern.compile("[^a-zA-Z0-9]");
 		
 		while(l<h){
+			// if invalid char continue
 			if(p.matcher(""+input.charAt(l)).find()){
 				l++;
 				continue;

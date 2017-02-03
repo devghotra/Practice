@@ -27,11 +27,13 @@ public class SpiralOrderN2 {
 				 h1 = new ArrayList<>();
 				 initializeList(a, h1);
 			 } 
+			 
+			 result.set(i, h1);
+			 
 			 for(int j = i; j < a-i; j++){
 				 num++;
 		    	 h1.set(j, num);
 		     }
-			 result.set(i, h1);
 		     
 		     for(int k = i+1; k < a-i; k++){
 		    	 ArrayList<Integer> h2 = result.get(k);

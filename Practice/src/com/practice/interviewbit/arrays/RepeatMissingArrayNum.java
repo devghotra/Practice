@@ -11,6 +11,9 @@ public class RepeatMissingArrayNum {
 
 	}
 	
+	//http://www.geeksforgeeks.org/find-a-repeating-and-a-missing-number/
+	// 3rd solution seems easy to remember but won't work for read only array
+	
 	public List<Integer> repeatedNumber(final List<Integer> nums) {
 		
 		int arraySize = nums.size();
@@ -32,6 +35,8 @@ public class RepeatMissingArrayNum {
 			
 		}
 		
+		// sq(a) - sq(b) = (a+b)*(a-b)
+		// idxSumSq.subtract(arrSumSq) => sq(a) - sq(b)
 		BigInteger apb = idxSumSq.subtract(arrSumSq).divide(idxSum.subtract(arrSum));
 		BigInteger amb = idxSum.subtract(arrSum);
 		
