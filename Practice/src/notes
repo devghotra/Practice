@@ -14,3 +14,15 @@ Arrays
 3. swap
 4. Use extra memory for better time complexity
 5. Utilize hashing
+
+Linked List
+1. Reverse the list - check size if odd or even
+2. swap elements
+
+String
+1. we can do arithmetic operations such as + - on chars
+
+
+TreeMap
+1. TreeMap in Java acts as Heap 
+2. map.floorKey(key) returns the greatest key less than or equal to the given key, or null if there is no such key.
