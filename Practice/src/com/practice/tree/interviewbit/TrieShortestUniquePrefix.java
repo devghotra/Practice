@@ -16,11 +16,14 @@ public class TrieShortestUniquePrefix {
 		words.add("bert");
 
 		TrieShortestUniquePrefix trie = new TrieShortestUniquePrefix();
+		/*
 		for (String word : words) {
 			trie.insert(word);
 		}
 		
 		System.out.println(trie.search("bearcat"));
+		*/
+		System.out.println(trie.prefix(words));
 	}
 
 	TrieNode root = new TrieNode(' ');

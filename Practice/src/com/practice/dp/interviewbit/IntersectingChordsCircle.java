@@ -6,12 +6,11 @@ public class IntersectingChordsCircle {
 
 	public static void main(String[] args) {
 		IntersectingChordsCircle inst = new IntersectingChordsCircle();
-		System.out.println(inst.chordCnt(19));
+		System.out.println(inst.chordCnt(22));
 
 	}
-	
-	
-	public int chordCnt(int A){
+
+	public int chordCnt(int A) {
 		if(A == 0)
 			return 0;
 		

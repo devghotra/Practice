@@ -18,8 +18,8 @@ public class ArrangeHorsesInStables {
 		 * BBWBBBWW - 3 Ans: 2
 		 */
 
-		String horses = "WBBWWWB";
-		int stables = 30;
+		String horses = "BWBWBWBWBBWWBBWBBBWWWBBWBBWWBBBBWBWWWBBWBBBBBWB";
+		int stables = 13;
 		
 		System.out.println("Rec Score " + inst.arrangeRec(horses, stables));
 		System.out.println("DP Score "+inst.arrangeDynamic(horses, stables));
@@ -64,7 +64,7 @@ public class ArrangeHorsesInStables {
 		return w * b;
 	}
 
-	/* Correct Solution but recursive solution fails in time complexity */
+	/* Recursive solution - accepted on IB */
 	public int arrangeRec(String horses, int stables) {
 		if (horses == null || stables > horses.length()) {
 			return -1;
@@ -89,26 +89,24 @@ public class ArrangeHorsesInStables {
 		}
 
 		Integer sum = null;
-		for (int i = 0; i < horses.length(); i++) {
-			for (int j = 1; j <= horses.length() - 1; j++) {
-				String key1 = horses.substring(0, j) + "-" + 1;
-				Integer s1 = countMap.get(key1);
-				if (s1 == null) {
-					s1 = arrangeRec(horses.substring(0, j), 1, countMap);
-					countMap.put(key1, s1);
-				}
+		for (int j = 1; j <= horses.length() - 1; j++) {
+			String key1 = horses.substring(0, j) + "-" + 1;
+			Integer s1 = countMap.get(key1);
+			if (s1 == null) {
+				s1 = arrangeRec(horses.substring(0, j), 1, countMap);
+				countMap.put(key1, s1);
+			}
 
-				String key2 = horses.substring(j) + "-" + (stables - 1);
-				Integer s2 = countMap.get(key2);
-				if (s2 == null) {
-					s2 = arrangeRec(horses.substring(j), stables - 1, countMap);
-					countMap.put(key2, s2);
-				}
+			String key2 = horses.substring(j) + "-" + (stables - 1);
+			Integer s2 = countMap.get(key2);
+			if (s2 == null) {
+				s2 = arrangeRec(horses.substring(j), stables - 1, countMap);
+				countMap.put(key2, s2);
+			}
 
-				int tempSum = s1 + s2;
-				if (sum == null || tempSum < sum) {
-					sum = tempSum;
-				}
+			int tempSum = s1 + s2;
+			if (sum == null || tempSum < sum) {
+				sum = tempSum;
 			}
 		}
 

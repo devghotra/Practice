@@ -36,45 +36,22 @@ public class ConstructBTPreInOrder {
 		Map<Integer, Integer> inorderIndexMap = new HashMap<>();
 		final AtomicInteger i = new AtomicInteger(-1);
 		inorder.stream().forEach(num -> inorderIndexMap.put(num, i.incrementAndGet()));
-		return buildTree(preorder, inorder, inorderIndexMap, 0, preorder.size() - 1, 0, inorder.size() - 1);
+		return buildTree(preorder, inorder, inorderIndexMap);
 	}
 
-	public TreeNode buildTree(List<Integer> preorder, List<Integer> inorder, Map<Integer, Integer> inorderIndexMap, 
-			int preStart, int preEnd, int inStart, int inEnd) {
-
-		if (preStart > preEnd || inStart > inEnd) {
+	private TreeNode buildTree(List<Integer> preorder, List<Integer> inorder, Map<Integer, Integer> inorderIndexMap) {
+		if (preorder.isEmpty())
 			return null;
-		}
 
-		int num = preorder.get(preStart);
+		int num = preorder.get(0);
 		TreeNode node = new TreeNode(num);
 
-		int index = inorderIndexMap.get(num);
-		int len = index - inStart;
+		int inorderIndex = inorderIndexMap.get(num);
 
-		node.left = buildTree(preorder, inorder, inorderIndexMap, preStart + 1, preStart + len, inStart, index - 1);
-		node.right = buildTree(preorder, inorder, inorderIndexMap, preStart + len + 1, preEnd, index + 1, inEnd);
+		node.left = buildTree(preorder.subList(1, inorderIndex + 1), inorder.subList(0, inorderIndex));
+		node.right = buildTree(preorder.subList(inorderIndex + 1, preorder.size()), inorder.subList(inorderIndex + 1, inorder.size()));
 
 		return node;
 	}
-
-	/*
-	 * private TreeNode buildTree(List<Integer> preorder, List<Integer> inorder)
-	 * {
-	 * if (preorder.isEmpty())
-	 * return null;
-	 * 
-	 * int num = preorder.get(0);
-	 * TreeNode node = new TreeNode(num);
-	 * 
-	 * int inorderIndex = inorder.indexOf(num);
-	 * node.left = buildTree(preorder.subList(1, inorderIndex + 1),
-	 * inorder.subList(0, inorderIndex));
-	 * node.right = buildTree(preorder.subList(inorderIndex + 1,
-	 * preorder.size()), inorder.subList(inorderIndex + 1, inorder.size()));
-	 * 
-	 * return node;
-	 * }
-	 */
 
 }

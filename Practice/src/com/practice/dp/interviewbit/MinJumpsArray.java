@@ -13,35 +13,25 @@ public class MinJumpsArray {
 
 	public int jumpGreedy(List<Integer> a) {
 
-		if (a == null || a.size() == 0 || (a.get(0) == 0 && a.size() > 1))
-			return -1;
-
-		if (a.size() == 1)
-			return 0;
-
-		int minJumpsNeeded = 0;
 		int maxIndexReached = 0;
-		int jumpsCountedTillIndex = 0;
+		int jumpsCountedTill = 0;
+		int jumps = 0;
 
 		for (int i = 0; i < a.size(); i++) {
-			if (i > jumpsCountedTillIndex) {
-				
-				if(i > maxIndexReached){
-					return -1;
-				}
-				
-				jumpsCountedTillIndex = maxIndexReached;
-				minJumpsNeeded++;
+			if (i > maxIndexReached)
+				return -1;
+			
+			if (i > jumpsCountedTill){
+				jumpsCountedTill = maxIndexReached;
+				jumps++;
 			}
-				
+			
 			if (i + a.get(i) > maxIndexReached) {
 				maxIndexReached = i + a.get(i);
 			}
-
 		}
 
-		return minJumpsNeeded;
-
+		return jumps;
 	}
 	
 	/*

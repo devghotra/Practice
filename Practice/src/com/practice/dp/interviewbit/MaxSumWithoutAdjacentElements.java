@@ -24,6 +24,39 @@ public class MaxSumWithoutAdjacentElements {
 
 	}
 	
+	public int adjacent(ArrayList<List<Integer>> a) {
+		
+		if(a == null || a.isEmpty())
+			return 0;
+		
+		List<Integer> a1 = a.get(0);
+		List<Integer> a2 = a.get(1);
+		
+		int size = a1.size();
+		
+		int maxSumArr[] = new int[size+1];
+		maxSumArr[1] = a1.get(0) > a2.get(0) ? a1.get(0) : a2.get(0);
+		
+		int maxSum = maxSumArr[1];
+		
+		if(size > 1){
+			maxSumArr[2] = a1.get(1) > a2.get(1) ? a1.get(1) : a2.get(1);
+			maxSum = Math.max(maxSum, maxSumArr[2]);
+		}
+		
+		for(int i=3; i<=size; i++){
+			int num = Math.max(a1.get(i-1), a2.get(i-1));
+			int s1 = maxSumArr[i-2] + num;
+			int s2 = maxSumArr[i-3] + num;
+			
+			maxSumArr[i] = Math.max(s1,s2);
+			
+			maxSum = Math.max(maxSum, maxSumArr[i]);
+		}
+		
+		return maxSum;
+	}
+	
 	public int maxSum(List<Integer> a) {
 		if(a == null || a.isEmpty())
 			return 0;
@@ -48,41 +81,6 @@ public class MaxSumWithoutAdjacentElements {
 		}
 		
 		return maxSumArr[a.size()];
-	}
-	
-	public int adjacent(ArrayList<List<Integer>> a) {
-		
-		if(a == null || a.isEmpty())
-			return 0;
-		
-		List<Integer> a1 = a.get(0);
-		List<Integer> a2 = a.get(1);
-		
-		int size = a1.size();
-		
-		int maxSumArr[] = new int[size+1];
-		maxSumArr[1] = a1.get(0) > a2.get(0) ? a1.get(0) : a2.get(0);
-		
-		int maxSum = maxSumArr[1];
-		
-		if(size > 1){
-			maxSumArr[2] = a1.get(1) > a2.get(1) ? a1.get(1) : a2.get(1);
-			if(maxSumArr[2] > maxSum)
-				maxSum = maxSumArr[2];
-		}
-		
-		for(int i=3; i<=size; i++){
-			int num = Integer.max(a1.get(i-1), a2.get(i-1));
-			int s1 = maxSumArr[i-2] + num;
-			int s2 = maxSumArr[i-3] + num;
-			
-			maxSumArr[i] = Integer.max(s1,s2);
-			
-			if(maxSumArr[i] > maxSum)
-				maxSum = maxSumArr[i];
-		}
-		
-		return maxSum;
 	}
 	
 }

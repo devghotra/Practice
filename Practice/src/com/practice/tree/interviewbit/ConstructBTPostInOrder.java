@@ -1,10 +1,6 @@
 package com.practice.tree.interviewbit;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import com.google.common.collect.Lists;
 
@@ -12,50 +8,32 @@ public class ConstructBTPostInOrder {
 
 	public static void main(String[] args) {
 		ConstructBTPostInOrder inst = new ConstructBTPostInOrder();
-		List<Integer> inorder = Lists.newArrayList(2, 0, 1, 3);
-		List<Integer> postorder = Lists.newArrayList(0, 2, 3, 1);
+		List<Integer> inorder = Lists.newArrayList(17, 12, 24, 13, 2, 22, 9, 20, 18, 23, 3, 15, 21, 10, 4, 11, 19, 14, 16, 7, 1, 5, 6, 8 );
+		List<Integer> postorder = Lists.newArrayList( 17, 13, 2, 22, 24, 18, 20, 9, 15, 3, 11, 4, 10, 14, 16, 19, 1, 7, 21, 23, 12, 6, 8, 5 );
 
 		TreeNode root = inst.buildTree(inorder, postorder);
 		System.out.println(root);
 
 	}
 
-	public TreeNode buildTree(int[] inorder, int[] postorder) {
-		List<Integer> inorderList = new ArrayList<>();
-		List<Integer> postorderList = new ArrayList<>();
-
-		for (int i = 0; i < postorder.length; i++) {
-			inorderList.add(inorder[i]);
-			postorderList.add(postorder[i]);
-		}
-
-		return buildTree(inorderList, postorderList);
-	}
-
 	public TreeNode buildTree(List<Integer> inorder, List<Integer> postorder) {
-		Map<Integer, Integer> inorderIndexMap = new HashMap<>();
-		final AtomicInteger i = new AtomicInteger(-1);
-		inorder.stream().forEach(num -> inorderIndexMap.put(num, i.incrementAndGet()));
-		return buildTree(inorder, postorder, inorderIndexMap, 0, postorder.size() - 1, 0, inorder.size() - 1);
-	}
 
-	public TreeNode buildTree(List<Integer> inorder, List<Integer> postorder, Map<Integer, Integer> inorderIndexMap, 
-			int postStart, int postEnd, int inStart, int inEnd) {
-
-		if (postStart > postEnd || inStart > inEnd) {
+		if (inorder.isEmpty() || postorder.isEmpty())
 			return null;
-		}
 
-		int num = postorder.get(postEnd);
-		TreeNode node = new TreeNode(num);
+		// last element of post order is always root
+		TreeNode root = new TreeNode(postorder.get(postorder.size() - 1));
+		
+		// find roots index in inorder
+		int rootIndex = inorder.indexOf(root.val); // Optimization - use map to gain time complexity
+				
+		// all nodes prior to rootIndex will be in left
+		root.left = buildTree(inorder.subList(0, rootIndex), postorder.subList(0, rootIndex));
+		
+		// after rootIndex will be right
+		root.right = buildTree(inorder.subList(rootIndex + 1, inorder.size()), postorder.subList(rootIndex, postorder.size() - 1));
 
-		int index = inorderIndexMap.get(num);
-		int len = inEnd - index;
-
-		node.right = buildTree(inorder, postorder, inorderIndexMap, postEnd - len, postEnd - 1, index + 1, inEnd);
-		node.left = buildTree(inorder, postorder, inorderIndexMap, postStart, postEnd - len - 1, inStart, index - 1);
-
-		return node;
+		return root;
 	}
 
 }

@@ -46,8 +46,18 @@ public class InterleavedString {
 	 * 2. dp[0, j] base case - if a matches to c
 	 * 3. dp[i, 0] base case - if b matches to c
 	 * 4. dp[i, j] is true
-	 * 		if dp[i-1][j] is true and b[j] matches to c[i+j] element
-	 * 		or dp[i][j-1] is true and a[i] matches to c[i+j] element
+	 * 		if dp[i-1][j] is true and b[i] matches to c[i+j] element
+	 * 		or dp[i][j-1] is true and a[j] matches to c[i+j] element
+	 * 
+	 * Lets we are checking for i = 3 & j = 4 
+	 * means we need to check 7th char of interleaved string
+	 * 
+	 * if previous 6 chars were interleaved without using 3rd char of b(represented by i) then check if 3rd char of b matches to 7th char of c
+	 * 	i.e dp[i, j] = dp[i-1][j] && b[i] matches to c[i+j] element
+	 * 
+	 * if previous 6 chars were interleaved without using 4th char of a(represented by j) then check if 4th char of a matches to 7th char of c
+	 * 	i.e dp[i, j] = dp[i][j-1] && a[j] matches to c[i+j] element
+	 * 
 	 * 
 	 * 	a = "aabcc",
 		b = "dbbca",

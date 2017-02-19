@@ -57,7 +57,7 @@ public class ZigzagTraversal {
 		Queue<TreeNode> queue = new LinkedList<>();
 		queue.add(root);
 
-		ArrayList<Integer> list = new ArrayList<>();
+		ArrayList<Integer> resRow = new ArrayList<>();
 		List<TreeNode> nextNodes = new ArrayList<>();
 
 		while (!queue.isEmpty()) {
@@ -70,14 +70,14 @@ public class ZigzagTraversal {
 				nextNodes.add(node.right);
 			
 			if(level % 2 == 1)
-				list.add(node.val);
+				resRow.add(node.val);
 			else
-				list.add(0, node.val);
+				resRow.add(0, node.val);
 
 			if (queue.isEmpty()) {
-				result.add(list);
+				result.add(resRow);
 				queue.addAll(nextNodes);
-				list = new ArrayList<>();
+				resRow = new ArrayList<>();
 				nextNodes.clear();
 				level++;
 			}

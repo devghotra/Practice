@@ -61,8 +61,7 @@ public class KthSmallestElement {
 				continue;
 			}
 
-			// if no left child pop stack, process the node then let p point to
-			// the right
+			// if no left child pop stack, process the node then let p point to the right
 			TreeNode t = stack.pop();
 			list.add(t);
 			if (list.size() == k) {

@@ -1,6 +1,6 @@
 package com.practice.tree.interviewbit;
 
-public class BinaryTreeToLinkedList {
+public class FlattenBinaryTreeToLinkedList {
 
 	public static void main(String[] args) {
 		TreeNode n1 = new TreeNode(1);
@@ -20,7 +20,7 @@ public class BinaryTreeToLinkedList {
 		
 		n5.right = n6;
 		
-		BinaryTreeToLinkedList inst = new BinaryTreeToLinkedList();
+		FlattenBinaryTreeToLinkedList inst = new FlattenBinaryTreeToLinkedList();
 		inst.flatten(root);
 		
 		System.out.println(root);
@@ -33,25 +33,21 @@ public class BinaryTreeToLinkedList {
 	}
 	
 	private TreeNode helper(TreeNode node){
-		if(node == null)
-			return null;
-		
-		if(node.left == null && node.right == null)
+		if(node == null || (node.left == null && node.right == null)){
 			return node;
+		}
 		
 		TreeNode leftLast = helper(node.left);
 		TreeNode rightLast = helper(node.right);
 		
-		if(leftLast == null)
-			leftLast = node;
-		
-		TreeNode prevRight = node.right;
-		node.right = node.left;
-		node.left = null;
-		
-		leftLast.right = prevRight;
+		if(leftLast != null){
+			leftLast.right = node.right;
+			node.right = node.left;
+			node.left = null;
+		}
 		
 		return rightLast != null ? rightLast : leftLast;
+		
 	}
 	
 	

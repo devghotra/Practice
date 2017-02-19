@@ -24,26 +24,20 @@ public class MinDepthBinaryTree {
 		System.out.println(inst.minDepth(n1));
 
 	}
-
-	int minDepth = Integer.MAX_VALUE;
 	
 	public int minDepth(TreeNode root) {
-		return getMinDepth(root, 1);
-	}
-
-	public int getMinDepth(TreeNode root, int currentDepth) {
-		if (root == null)
+		if(root == null)
 			return 0;
 		
-		if (root.left == null && root.right == null) {
-			minDepth = Math.min(currentDepth, minDepth);
-		}
+		int leftMinDepth = minDepth(root.left);
+		int rightMinDepth = minDepth(root.right);
 		
-		getMinDepth(root.left, currentDepth+1);
-		getMinDepth(root.right, currentDepth+1);
-		
-		return minDepth;
-		
+		// if both children's returned min depth then pick the min of them and add 1 for current level
+		if(leftMinDepth != 0 && rightMinDepth != 0)
+			return Math.min(leftMinDepth, rightMinDepth) + 1;
+		// else min depth would be the max of both children's + 1, both children can return 0 or one of them may return some min depth
+		else
+			return Math.max(leftMinDepth, rightMinDepth) + 1;
 	}
 
 }

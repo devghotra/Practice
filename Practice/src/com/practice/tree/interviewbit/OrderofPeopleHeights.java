@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+// check OrderofPeopleHeightsRepeat
 public class OrderofPeopleHeights {
 
 	HeightTreeNode treeRoot = null;

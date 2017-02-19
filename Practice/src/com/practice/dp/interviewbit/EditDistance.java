@@ -4,45 +4,39 @@ public class EditDistance {
 
 	public static void main(String[] args) {
 		EditDistance inst = new EditDistance();
-		
-		System.out.println(inst.minDistance("000123", "123"));
+
+		System.out.println(inst.minDistance("aac", "abac"));
 
 	}
-	
-	public int minDistance(String from, String to){
-		int[][] ed = new int[to.length()+1][from.length()+1];
-		
-		for(int i=0; i<=to.length(); i++){
-			for(int j=0; j<=from.length();j++){
-				
-				// base case - fill 1st row
-				if(i==0){
-					ed[i][j] = j;
-					continue;
+
+	public int minDistance(String from, String to) {
+
+		int dp[][] = new int[from.length() + 1][to.length() + 1];
+
+		// 1st base case EMPTY -> TO
+		for (int i = 1; i <= to.length(); i++) {
+			dp[0][i] = i;
+		}
+
+		// 2nd base case FROM -> EMPTY
+		for (int i = 1; i <= from.length(); i++) {
+			dp[i][0] = i;
+		}
+
+		for (int i = 1; i <= from.length(); i++) {
+			for (int j = 1; j <= to.length(); j++) {
+				if (from.charAt(i - 1) == to.charAt(j - 1)) {
+					dp[i][j] = dp[i - 1][j - 1];
+				} else {
+					int replaceCost = dp[i - 1][j - 1] + 1;
+					int insertCost = dp[i][j - 1] + 1;
+					int deleteCost = dp[i - 1][j] + 1;
+
+					dp[i][j] = Math.min(replaceCost, Math.min(insertCost, deleteCost));
 				}
-				
-				
-				// base case - fill 1st col
-				if(j==0){
-					ed[i][j] = i;
-					continue;
-				}
-				
-				char toChar = to.charAt(i-1);
-				char fromChar = from.charAt(j-1);
-				
-				if(fromChar == toChar){
-					ed[i][j] = ed[i-1][j-1];
-				} else{
-					int replace = ed[i-1][j-1] + 1;
-					int delete = ed[i][j-1] + 1;
-					int insert = ed[i-1][j] + 1;
-					ed[i][j] = Integer.min(replace, Integer.min(delete, insert));
-				}
-				
 			}
 		}
-		
-		return ed[to.length()][from.length()];
+
+		return dp[from.length()][to.length()];
 	}
 }

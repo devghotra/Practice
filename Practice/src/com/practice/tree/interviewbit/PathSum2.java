@@ -42,7 +42,7 @@ public class PathSum2 {
 
 		TreeNode nn = root;
 		Stack<TreeNode> stack = new Stack<>();
-		Set<TreeNode> set = new HashSet<>();
+		Set<TreeNode> set = new HashSet<>();  	// to keep track of visited
 		List<Integer> list = new ArrayList<>();
 		int currentSum = 0;
 		
@@ -60,10 +60,12 @@ public class PathSum2 {
 				result.add(new ArrayList<>(list));
 			}
 
+			// if right is not yet visited, make it a node
 			if (p.right != null && !set.contains(p.right)) {
 				set.add(p.right);
 				nn = p.right;
 			} else {
+				// both left and right children are traversed, pop the node and subtract from current sum
 				p = stack.pop();
 				list.remove(list.size() - 1);
 				currentSum -= p.val;
