@@ -18,7 +18,7 @@ public class LargestRectangleHistogram {
 
 		int i = 0;
 		while (i < heights.size()) {
-			if (stack.isEmpty() || heights.get(stack.peek()) < heights.get(i)) {
+			if (stack.isEmpty() || heights.get(i) > heights.get(stack.peek())) {
 				stack.add(i);
 				i++;
 				continue;

@@ -23,11 +23,8 @@ public class Diffk2 {
 			if (set.contains(i)) {
 				return 1;
 			}
-			if (i < k) {
-				set.add(i + k);
-			} else {
-				set.add(i - k);
-			}
+			set.add(i+k);
+            set.add(i-k);
 		}
 		return 0;
 	}

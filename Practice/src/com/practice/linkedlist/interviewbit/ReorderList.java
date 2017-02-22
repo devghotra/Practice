@@ -36,9 +36,9 @@ public class ReorderList {
 			ListNode tempN2 = n2.next;
 
 			n1.next = n2;
+			n2.next = tempN1;
+			
 			n1 = tempN1;
-
-			n2.next = n1;
 			n2 = tempN2;
 		}
 

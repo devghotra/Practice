@@ -24,7 +24,11 @@ public class RainWaterTrap {
 				s.push(i++);
 			} else {
 				int bot = s.pop();
-				maxBotWater = s.isEmpty() ? 0 : (Math.min(A.get(s.peek()), A.get(i)) - A.get(bot)) * (i - s.peek() - 1);
+				if(!s.isEmpty()){
+				    maxBotWater = (Math.min(A.get(s.peek()), A.get(i)) - A.get(bot)) * (i - s.peek() - 1);
+				} else{
+				    maxBotWater = 0;
+				}
 				maxWater += maxBotWater;
 			}
 		}

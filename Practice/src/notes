@@ -2,12 +2,6 @@ Bit Manipulation
 1. To check last bit of an integer do & operation with 1
 2. if all bits of two sequences are different then |(or) operation can add both and give resultant
 
-Left Right Scan Problems
-1. Distribute Candies
-2. Max distance in Arrays
-3. Rain water trap
-
-
 Arrays
 1. Left/Right Scan
 2. Find min/max
@@ -26,3 +20,9 @@ String
 TreeMap
 1. TreeMap in Java acts as Heap 
 2. map.floorKey(key) returns the greatest key less than or equal to the given key, or null if there is no such key.
+
+Left-Right Approach
+Arrays -> Maximum Unsorted Subarray
+1. Distribute Candies
+2. Max distance in Arrays
+3. Rain water trap

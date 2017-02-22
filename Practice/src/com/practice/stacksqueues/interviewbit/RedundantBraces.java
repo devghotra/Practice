@@ -8,7 +8,7 @@ public class RedundantBraces {
 		String str = "((a+b)+(c-d))";
 		System.out.println(braces(str));
 	}
-
+	
 	public static int braces(String exp) {
 
 		Stack<Character> stack = new Stack<>();

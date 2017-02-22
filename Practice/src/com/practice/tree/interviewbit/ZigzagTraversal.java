@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Queue;
 
 public class ZigzagTraversal {
-	
-	ArrayList<ArrayList<Integer>> result = new ArrayList<>();
 
 	public static void main(String[] args) {
 		TreeNode root = new TreeNode(0);
@@ -85,6 +83,8 @@ public class ZigzagTraversal {
 
 		return result;
 	}
+	
+	ArrayList<ArrayList<Integer>> result = new ArrayList<>();
 	
 	public ArrayList<ArrayList<Integer>> zigzagLevelOrderRec(TreeNode root) {
 		helper(root, 1);

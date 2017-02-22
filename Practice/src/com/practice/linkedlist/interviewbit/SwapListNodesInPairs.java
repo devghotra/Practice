@@ -3,6 +3,7 @@ package com.practice.linkedlist.interviewbit;
 public class SwapListNodesInPairs {
 
 	public static void main(String[] args) {
+		
 		ListNode n1 = new ListNode(1);
 		ListNode n2 = new ListNode(2); 
 		ListNode n3 = new ListNode(3); 
@@ -25,7 +26,7 @@ public class SwapListNodesInPairs {
 	}
 
 	public static ListNode swapPairs(ListNode head) {
-		
+	    
 		if(head == null)
 			return head;
 		
@@ -35,20 +36,31 @@ public class SwapListNodesInPairs {
 		ListNode prev = dummy;
 		
 		while(n1 != null && n2 != null){
+		    // keep ref to next iteration n1
+		    ListNode nextN1 = n2.next;
+			
+			// swap adjacent
+			n2.next = n1;
+			// connect with reordered list so far
 			prev.next = n2;
 			
-			ListNode nextN1 = n2.next;
-			
-			n1.next = nextN1;
-			n2.next = n1;
-			
+			// unlink from forward list (unordered list)
+			n1.next = null;
+			// set end of ordered list so far as prev
 			prev = n1;
+			
+			// set n1 & n2 for next iteration
 			n1 = nextN1;
 			n2 = n1 != null ? n1.next : null;
 			
 		}
 		
+		// if there was only 1 element left
+		if(n1 != null)
+		    prev.next = n1;
+		
 		return dummy.next == null ? head : dummy.next;
 		
+	
 	}
 }

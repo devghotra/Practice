@@ -2,7 +2,7 @@ package com.practice.bit.interviewbit;
 
 public class DivideIntegers {
 	public static void main(String[] args) {
-		System.out.println(divide(-2056269396, -7906947));
+		System.out.println(divide(11, 3));
 	}
 
 	public static int divide(int dividend, int divisor) {

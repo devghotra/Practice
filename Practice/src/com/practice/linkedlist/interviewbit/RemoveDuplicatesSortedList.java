@@ -9,31 +9,24 @@ public class RemoveDuplicatesSortedList {
 	
 	public ListNode deleteDuplicates(ListNode head) {
 		
-		ListNode newHead = null;
-		ListNode lastNonDupNode = null;
-		ListNode prevNode = null;
+		ListNode lastNonDupNode = head;
+		ListNode prevNode = head;
 
-		ListNode node = head;
+		ListNode node = head.next;
 
 		while (node != null) {
-			if (prevNode == null || node.val != prevNode.val) {
-				if (newHead == null) {
-					newHead = node;
-				} else {
-					lastNonDupNode.next = node;
-				}
-
+			if (node.val != prevNode.val) {
+				lastNonDupNode.next = node;
 				lastNonDupNode = node;
 			}
 			prevNode = node;
 			node = node.next;
 		}
 
-		if (newHead != null)
-			lastNonDupNode.next = null;
+		lastNonDupNode.next = null;
 
-		return newHead;
+		return head;
 	
-    }
+	}
 
 }

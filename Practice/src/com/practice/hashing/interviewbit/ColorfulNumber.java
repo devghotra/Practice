@@ -16,6 +16,7 @@ public class ColorfulNumber {
 		char[] digitsArr = numStr.toCharArray();
 		
 		Set<Integer> productSet = new HashSet<>();
+		
 		for (int i = 0; i < digitsArr.length; i++) {
 			int digit1 = Integer.valueOf(""+digitsArr[i]);
 			int product = digit1;
