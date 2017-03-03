@@ -41,10 +41,10 @@ public class CloneGraph {
 		UndirectedGraphNode copyRoot = new UndirectedGraphNode(root.label);
 		map.put(root, copyRoot);
 		
-		Set<UndirectedGraphNode> processedNodesMap = new HashSet<>();
+		Set<UndirectedGraphNode> processedNodesSet = new HashSet<>();
 		
 		Queue<UndirectedGraphNode> Q = new LinkedList<>();
-		processedNodesMap.add(root);
+		processedNodesSet.add(root);
 		Q.add(root);
 		
 		
@@ -71,8 +71,8 @@ public class CloneGraph {
 				
 				copy.neighbors.add(neighborCopy);
 				
-				if(!processedNodesMap.contains(neighbor)){
-					processedNodesMap.add(neighbor);
+				if(!processedNodesSet.contains(neighbor)){
+					processedNodesSet.add(neighbor);
 					Q.add(neighbor);
 				}
 			}

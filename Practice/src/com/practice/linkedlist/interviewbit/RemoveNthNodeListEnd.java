@@ -18,7 +18,7 @@ public class RemoveNthNodeListEnd {
 	public ListNode removeNthFromEnd(ListNode head, int n) {
 
 		ListNode fast = head;
-		ListNode slow = head;
+		ListNode slow = head; // only moves when k becomes negative, it would stop at (n-1)th element
 
 		while (fast != null) {
 
@@ -29,6 +29,7 @@ public class RemoveNthNodeListEnd {
 			n--;
 		}
 
+        // if n is still positive then it must be greater than size of list
 		if(n >= 0){
 			return head.next;
 		} else if (slow.next != null){

@@ -6,7 +6,7 @@ public class IntersectingChordsCircle {
 
 	public static void main(String[] args) {
 		IntersectingChordsCircle inst = new IntersectingChordsCircle();
-		System.out.println(inst.chordCnt(22));
+		System.out.println(inst.chordCnt(3));
 
 	}
 
@@ -24,7 +24,9 @@ public class IntersectingChordsCircle {
 			int points = 2*i;
 			counts[i] = BigInteger.ZERO;
 			for(int j=2;j<=points;j=j+2){
-				counts[i] = counts[i].add(counts[(j-2)/2].multiply(counts[(points-j)/2]).mod(modOf)).mod(modOf);
+				counts[i] = counts[i]
+							.add(counts[(j-2)/2].multiply(counts[(points-j)/2])
+							.mod(modOf)).mod(modOf);
 			}
 		}
 		

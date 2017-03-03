@@ -1,88 +1,48 @@
 package com.practice.binarysearch.interviewbit;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MedianOfTwoSortedArray {
 
 	public static void main(String[] args) {
-		int[] a = { 1,2,3,4,5};
-		int[] b = { 6,7};
+		int[] a = { 1 };
+		int[] b = { 2, 3, 4, 5, 6 };
 
 		double median = findMedianSortedArrays(a, b);
 		System.out.println(median);
 	}
 
 	public static double findMedianSortedArrays(int[] a, int[] b) {
-		List<Integer> aList = new ArrayList<>();
-		for (int a1 : a) {
-			aList.add(a1);
-		}
+		int totalElements = a.length + b.length;
 
-		List<Integer> bList = new ArrayList<>();
-		for (int b1 : b) {
-			bList.add(b1);
-		}
-
-		double median = findMedianSortedArrays(aList, bList);
-		return median;
-	}
-
-	public static double findMedianSortedArrays(List<Integer> a, List<Integer> b) {
-		int median = findMedian(a, b);
-		if (median >= 0) {
-			if ((a.size() + b.size()) % 2 == 1) {
-				return a.get(median);
-			} else {
-				return (a.get(median) + a.get(median + 1)) / 2;
-			}
+		int medianPos = totalElements / 2;
+		if (totalElements % 2 == 0) {
+			double m1 = findMedianSortedArrays(a, b, 0, a.length - 1, 0, b.length - 1, medianPos);
+			double m2 = findMedianSortedArrays(a, b, 0, a.length - 1, 0, b.length - 1, medianPos + 1);
+			return (m1 + m2) / 2;
 		} else {
-			median = findMedian(b, a);
-			if (median >= 0) {
-				if ((a.size() + b.size()) % 2 == 1) {
-					return b.get(median);
-				} else {
-					return (b.get(median) + b.get(median + 1)) / 2;
-				}
-			} else {
-				if(b.get(0) >= a.get(a.size() - 1))
-					return (double)(a.get(a.size() - 1) + b.get(0)) / 2;
-				else if(a.get(0) >= b.get(b.size() - 1))
-					return (double)(b.get(b.size() - 1) + a.get(0)) / 2; 
-				else 
-					return -1;
-			}
+			return findMedianSortedArrays(a, b, 0, a.length - 1, 0, b.length - 1, medianPos + 1);
 		}
-
 	}
 
-	public static int findMedian(List<Integer> a, List<Integer> b) {
-		int medianIndex = (a.size() + b.size() - 1) / 2;
-
-		int guessIndex = (a.size() - 1) / 2;
-		int maxIndex = a.size() - 1;
-		int minIndex = 0;
-		while (minIndex <= maxIndex) {
-			int smallerElements = medianIndex - guessIndex;
-
-			if (smallerElements > 0 && smallerElements < b.size() && b.get(smallerElements - 1) <= a.get(guessIndex) && a.get(guessIndex) <= b.get(smallerElements)) {
-				return guessIndex;
-			} else {
-				//if (guessIndex == 0 || guessIndex == a.size() - 1)
-					//break;
-
-				if (a.get(guessIndex) < b.get(smallerElements - 1)) {
-					minIndex = guessIndex;
-					guessIndex = (guessIndex + 1 + maxIndex) / 2;
-				} else if (a.get(guessIndex) > b.get(smallerElements)) {
-					maxIndex = guessIndex;
-					guessIndex = (minIndex + guessIndex - 1) / 2;
-				}
-			}
+	// pos - position of element in merged array based on starting index 1
+	private static int findMedianSortedArrays(int[] a, int[] b, int astart, int aend, int bstart, int bend, int pos) {
+		if (astart > aend) {
+			return b[bstart + pos - 1];
+		} else if (bstart > bend) {
+			return a[astart + pos - 1];
+		} else if (pos == 1) {
+			return a[astart] < b[bstart] ? a[astart] : b[bstart];
 		}
 
-		return -1;
+		int m = pos / 2;
 
+		int aVal = astart + m - 1 <= aend ? a[astart + m - 1] : Integer.MAX_VALUE;
+		int bVal = bstart + m - 1 <= bend ? b[bstart + m - 1] : Integer.MAX_VALUE;
+
+		if (aVal <= bVal) {
+			return findMedianSortedArrays(a, b, astart + m, aend, bstart, bend, pos - m);
+		} else {
+			return findMedianSortedArrays(a, b, astart, aend, bstart + m, bend, pos - m);
+		}
 	}
 
 }

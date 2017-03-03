@@ -36,6 +36,7 @@ public class ZigzagTraversal {
 		ZigzagTraversal o = new ZigzagTraversal();
 		ArrayList<ArrayList<Integer>> result = o.zigzagLevelOrderRec(root);
 		System.out.println(result);
+		
 
 	}
 

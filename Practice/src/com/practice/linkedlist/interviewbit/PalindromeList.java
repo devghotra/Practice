@@ -23,25 +23,25 @@ public class PalindromeList {
 	
 	public static int lPalin(ListNode A) {
 		
-		ListNode p1=A;
-		ListNode p2=A;
+		ListNode slow=A;
+		ListNode fast=A;
 		
-		while(p2.next != null && p2.next.next != null){
-			p1 = p1.next;
-			p2 = p2.next.next;
+		while(fast.next != null && fast.next.next != null){
+			slow = slow.next;
+			fast = fast.next.next;
 		}
 		
-		if(p2.next != null)
-			p2 = p2.next;
+		if(fast.next != null)
+			fast = fast.next;
 		
-		if(p1.next != null){
-			reverseList(p1.next);
-			p1.next = p2;
+		if(slow.next != null){
+			reverseList(slow.next);
+			slow.next = fast;
 		}
 		
-		while(p1.next != null){
-			p1 = p1.next;
-			if(A.val != p1.val){
+		while(slow.next != null){
+			slow = slow.next;
+			if(A.val != slow.val){
 				return 0;
 			}
 			A = A.next;

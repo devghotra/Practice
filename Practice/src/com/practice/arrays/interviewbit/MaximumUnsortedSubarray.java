@@ -25,7 +25,7 @@ public class MaximumUnsortedSubarray {
 		for (int i = 1; i < input.size(); i++) {
 			int current = input.get(i);
 			max = Math.max(max, current);
-			if (current < input.get(i - 1) || current < max) {
+			if (current < max) {
 				if (l1 == -1) {
 					l1 = i - 1;
 					r1 = i;
@@ -43,7 +43,7 @@ public class MaximumUnsortedSubarray {
 		for (int i = input.size() - 2; i >= 0; i--) {
 			int current = input.get(i);
 			min = Math.min(min, current);
-			if (current > input.get(i + 1) || current > min) {
+			if (current > min) {
 				if (l2 == -1) {
 					l2 = i;
 					r2 = i;

@@ -9,7 +9,7 @@ public class SteppingNumbers {
 	
 	public static void main(String[] args) {
 		SteppingNumbers sn = new SteppingNumbers();
-		System.out.println(sn.stepnum(0, 86));
+		System.out.println(sn.stepnum(100, 200));
 	}
 
 	public ArrayList<Integer> stepnum(int l, int h) {

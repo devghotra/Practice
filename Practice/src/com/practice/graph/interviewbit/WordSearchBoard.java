@@ -42,6 +42,10 @@ public class WordSearchBoard {
 		Stack<Node> stack = new Stack<>();
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
+				
+				if(board[i][j] != word.charAt(0))
+				    continue;
+				
 				int indexToCheck = 0;
 				stack.add(new Node(i, j, 0));
 

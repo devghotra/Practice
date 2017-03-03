@@ -7,48 +7,66 @@ public class LeastCommonAncestor {
 		TreeNode two = new TreeNode(2);
 		TreeNode three = new TreeNode(3);
 		TreeNode four = new TreeNode(4);
+		TreeNode four1 = new TreeNode(4);
 		TreeNode five = new TreeNode(5);
 		TreeNode six = new TreeNode(6);
 		TreeNode seven = new TreeNode(7);
-		//root.left = two;
-		//root.right = three;
-		//two.left = four;
-		//two.right = five;
-		//three.left = six;
-		//five.left = seven;
+		
+		root.left = two;
+		root.right = three;
+		two.right = four;
+		three.left = four1;
+		
 		LeastCommonAncestor o = new LeastCommonAncestor();
-		System.out.println(o.lca(root, 1, 1));
+		System.out.println(o.lca(root, 4, 4));
 
 	}
 
+	TreeNode lca = null;
+	
 	/*
+	 * Leetcode - input tree can have duplicate nodes
+	 */
 	public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-		if(root == null || p == null || q == null)
-			return null;
-		
-		if(root.val == p.val || root.val == q.val){
-			return root;
-		}
-		
-		TreeNode left = lowestCommonAncestor(root.left, p, q);
-		TreeNode right = lowestCommonAncestor(root.right, p, q);
-		
-		return left != null && right != null ? root : left != null ? left : right;
-	}*/
-	public TreeNode lowestCommonAncestorLC(TreeNode root, TreeNode p, TreeNode q) {
-		//helper(root, p, q);
+		lowestCommonAncestorHelper(root, p, q);
 		return lca;
 	}
 	
-	TreeNode lca = null;
-	
+	private int lowestCommonAncestorHelper(TreeNode root, TreeNode p, TreeNode q) {
+
+		int matchedNodes = 0;
+		if(root == null || lca != null)
+			return matchedNodes;
+		
+		if(root == p){
+			matchedNodes++;
+		}
+		
+		if(root == q){
+			matchedNodes++;
+		}
+		
+		matchedNodes += lowestCommonAncestorHelper(root.left, p, q);
+		matchedNodes += lowestCommonAncestorHelper(root.right, p, q);
+		
+		if(matchedNodes == 2 && lca == null){
+			lca = root;
+		} 
+		
+		return matchedNodes;
+		
+	}
+
+	/*
+	 * Expect no duplicate nodes in tree - works only in IB
+	 */
 	public int lca(TreeNode root, int p, int q) {
-		helper(root, p, q);
+		lcaHelper(root, p, q);
 		return lca == null ? -1 : lca.val;
 	}
 	
 	
-	public int helper(TreeNode root, int p, int q) {
+	public int lcaHelper(TreeNode root, int p, int q) {
 		int matchedNodes = 0;
 		if(root == null || lca != null)
 			return matchedNodes;
@@ -61,8 +79,8 @@ public class LeastCommonAncestor {
 			matchedNodes++;
 		}
 		
-		matchedNodes += helper(root.left, p, q);
-		matchedNodes += helper(root.right, p, q);
+		matchedNodes += lcaHelper(root.left, p, q);
+		matchedNodes += lcaHelper(root.right, p, q);
 		
 		if(matchedNodes == 2 && lca == null){
 			lca = root;

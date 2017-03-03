@@ -1,42 +1,31 @@
 package com.practice.binarysearch.interviewbit;
 
-import java.math.BigInteger;
-
 public class SquareRootInteger {
 
 	public static void main(String[] args) {
-		System.out.println(sqrt(11));
+		System.out.println(sqrt(2));
 
 	}
-
-	public static int sqrt(int a){
-		if(a==0)
+	
+	public static int sqrt(int x) {
+		if (x == 0)
 			return 0;
 		
-		int low = 1;
-		int high = 2;
-		int maxHigh = Integer.MAX_VALUE;
-		
-		BigInteger num = BigInteger.valueOf(a);
-		while(low <  high){
-			BigInteger sqLow = BigInteger.valueOf(low).multiply(BigInteger.valueOf(low));
-			BigInteger sqHigh = BigInteger.valueOf(high).multiply(BigInteger.valueOf(high));
+		int left = 1, right = x;
+		while (true) {
+			if (left > x / left )
+				return left-1;
 			
-			if(sqLow.equals(num))
-				return low;
+			// implies (left+right)/2 but this approach will avoid overflow
+			int mid = left + (right - left) / 2;
 			
-			if(sqHigh.equals(num))
-				return high;
-			
-			if(num.compareTo(sqHigh) == 1){
-				low = high;
-				high = high*2 < maxHigh ? high*2 : maxHigh;
-			} else{
-				maxHigh = high;
-				high = (low+high)/2;
+			// implies (mid*mid > x) but this approach will avoid overflow
+			if (mid > x / mid) {
+				right = mid - 1;
+			} else {
+				left = mid + 1;
 			}
 		}
-		
-		return low;
 	}
+	
 }

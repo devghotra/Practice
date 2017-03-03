@@ -18,12 +18,9 @@ public class PowerOfTwo {
 			int carry = 0;
 			int n = dividend.length();
 
-			if (n > 0) {
-				int num = dividend.charAt(n - 1) - '0';
-
-				if (num % 2 == 1)
-					return 0;
-			}
+			int num = dividend.charAt(n - 1) - '0';
+            if (num % 2 == 1)
+				return 0;
 
 			for (int i = 0; i < n; i++) {
 

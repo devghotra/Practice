@@ -4,8 +4,11 @@ package com.practice.bit.interviewbit;
 public class AddSubstract2Nums {
 
 	public static void main(String[] args) {
-		int a = 5;
-		int b = 7;
+		int a = 3;
+		int b = 5;
+		
+		System.out.println(~a+1);
+		
 		System.out.println(subtract(a, b));
 
 	}
@@ -13,7 +16,7 @@ public class AddSubstract2Nums {
 	public static int add(int x, int y) {
 		while (y != 0) {
 			// carry now contains common set bits of x and y
-			int carry = x & y;
+			int carry = x & y; // calculates carry 1 or 0
 
 			// Sum of bits of x and y where at least one of the bits is not set
 			x = x ^ y;

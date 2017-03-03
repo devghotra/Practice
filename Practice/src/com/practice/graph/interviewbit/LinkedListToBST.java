@@ -34,22 +34,23 @@ public class LinkedListToBST {
 		if(head == null)
 			return null;
 		
-		ListNode p1 = head;
-		ListNode p2 = head;
-		ListNode p2Prev = null;
+		ListNode fast = head;
+		ListNode slow = head;
+		ListNode slowPrev = null;
 		
-		while(p1 != null && p1.next != null){
-			p1 = p1.next.next;
-			p2Prev = p2;
-			p2 = p2.next;
+		// find mid of linked list using 2 pointer approach and make it a root
+		while(fast != null && fast.next != null){
+			fast = fast.next.next;
+			slowPrev = slow;
+			slow = slow.next;
 		}
 		
-		TreeNode root = new TreeNode(p2.val);
+		TreeNode root = new TreeNode(slow.val);
 		
-		if(head != p2){
-			p2Prev.next = null;
+		if(head != slow){
+			slowPrev.next = null;
 			root.left = sortedListToBST(head);
-			root.right = sortedListToBST(p2.next);
+			root.right = sortedListToBST(slow.next);
 		}
 		
 		

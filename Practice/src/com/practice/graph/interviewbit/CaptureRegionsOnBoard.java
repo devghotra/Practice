@@ -24,26 +24,14 @@ public class CaptureRegionsOnBoard {
 		int numRows = board.size();
 		int numCols = board.get(0).size();
 		
+		// Mark 'O' as '#' on the border -> top row, bottom row, 1st col, last col
 		for(int i=0; i<numRows; i++){
-	        if(board.get(i).get(0) =='O'){
-	            bfs(board, i, 0);
-	        }
-	        
-	        if(board.get(i).get(numCols-1) =='O'){
-	            bfs(board, i, numCols-1);
-	        }
-	    }
-		
-		for(int j=0; j<numCols; j++){
-			
-			if(board.get(0).get(j) =='O'){
-	            bfs(board, 0, j);
-	        }
-	        
-			if(board.get(numRows-1).get(j) =='O'){
-	            bfs(board, numRows-1, j);
-	        }
-	    }
+			for(int j=0; j<numCols; j++){
+				if(i == 0 || j == 0 || i == numRows - 1 || j == numCols - 1){
+					bfs(board, i, j);
+				}
+			}
+		}
 		
 		for(int i=0; i<numRows; i++){
 	        for(int j=0; j<numCols; j++){
@@ -64,10 +52,12 @@ public class CaptureRegionsOnBoard {
 		while(!queue.isEmpty()){
 			Node n = queue.poll();
 			
-			if(n.x < 0 || n.x == board.size() || n.y < 0 || n.y == board.get(0).size() || board.get(n.x).get(n.y) == '#' || board.get(n.x).get(n.y) == 'X')
+			if(n.x < 0 || n.x == board.size() || n.y < 0 || n.y == board.get(0).size() 	// if x,y are invalid
+					|| board.get(n.x).get(n.y) == '#' 									// if its already marked
+					|| board.get(n.x).get(n.y) == 'X')									// if its X
 				continue;
 			
-			board.get(n.x).set(n.y, '#');
+			board.get(n.x).set(n.y, '#'); // mark this position as #
 			
 			queue.add(new Node(n.x-1, n.y));
 			queue.add(new Node(n.x+1, n.y));

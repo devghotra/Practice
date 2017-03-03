@@ -1,4 +1,4 @@
-package com.pcln.sort;
+package com.practice.sort;
 
 public class QuickSortRevisitedFB {
 
