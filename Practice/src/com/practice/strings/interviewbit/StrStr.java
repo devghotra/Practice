@@ -8,7 +8,7 @@ public class StrStr {
 	// this is SK approach that works in O(n)
 
 	public static void main(String[] args) {
-		System.out.println(strStr("bbaabbbbbaabbaabbbbbbabbbabaabbbabbabbbbababbbabbabaaababbbaabaaaba", "babaaa"));
+		System.out.println(strStr("mississippi", "pi"));
 		// System.out.println(strStr("ississippi", "issip"));
 	}
 

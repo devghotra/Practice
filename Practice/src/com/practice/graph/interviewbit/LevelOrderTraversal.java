@@ -24,40 +24,35 @@ public class LevelOrderTraversal {
 	
 	public static ArrayList<ArrayList<Integer>> levelOrder(TreeNode root) {
 		ArrayList<ArrayList<Integer>> result = new ArrayList<>();
+		
 		if(root == null)
 			return result;
-		
-		Queue<TreeNode> nodeQ = new LinkedList<>();
-		nodeQ.add(root);
-		
-		Queue<Integer> levelQ = new LinkedList<>();
-		levelQ.add(1);
-		
-		int previousLevel = 0;
-		ArrayList<Integer> levelList = null;
-		
-		while(!nodeQ.isEmpty()){
-			int level = levelQ.poll();
-			if(level > previousLevel){
-				levelList = new ArrayList<>();
-				result.add(levelList);
-				previousLevel = level;
-			}
+
+		Queue<TreeNode> queue = new LinkedList<>();
+		queue.add(root);
+
+		ArrayList<Integer> resRow = new ArrayList<>();
+		List<TreeNode> nextNodes = new ArrayList<>();
+
+		while (!queue.isEmpty()) {
+			TreeNode node = queue.poll();
 			
-			TreeNode node = nodeQ.poll();
-			levelList.add(node.val);
+			if (node.left != null)
+				nextNodes.add(node.left);
+
+			if (node.right != null)
+				nextNodes.add(node.right);
 			
-			if(node.left != null){
-				nodeQ.add(node.left);
-				levelQ.add(level+1);
-			}
-			
-			if(node.right != null){
-				nodeQ.add(node.right);
-				levelQ.add(level+1);
+			resRow.add(node.val);
+
+			if (queue.isEmpty()) {
+				result.add(resRow);
+				queue.addAll(nextNodes);
+				resRow = new ArrayList<>();
+				nextNodes.clear();
 			}
 		}
-		
+
 		return result;
 	}
 }
