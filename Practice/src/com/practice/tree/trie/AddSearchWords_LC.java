@@ -1,4 +1,4 @@
-package com.practice.problems.fb;
+package com.practice.tree.trie;
 
 public class AddSearchWords_LC {
 	public static void main(String[] args) {
@@ -72,22 +72,22 @@ public class AddSearchWords_LC {
 
 	}
 
-}
+	static class TrieNode {
+		char content;
+		// Map<Character, TrieNode> children = new HashMap<>();
+		boolean isEnd;
+		public TrieNode[] children = new TrieNode[26];
 
-class TrieNode {
-	char content;
-	// Map<Character, TrieNode> children = new HashMap<>();
-	boolean isEnd;
-	public TrieNode[] children = new TrieNode[26];
+		public TrieNode(char content) {
+			this.content = content;
 
-	public TrieNode(char content) {
-		this.content = content;
+		}
+
+		@Override
+		public String toString() {
+			return "TrieNode [content=" + content + ", children=" + children + ", isEnd=" + isEnd + "]";
+		}
 
 	}
-
-	@Override
-	public String toString() {
-		return "TrieNode [content=" + content + ", children=" + children + ", isEnd=" + isEnd + "]";
-	}
-
 }
+

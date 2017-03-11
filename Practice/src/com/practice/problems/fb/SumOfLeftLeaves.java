@@ -1,6 +1,6 @@
 package com.practice.problems.fb;
 
-import com.practice.tree.interviewbit.TreeNode;
+import com.practice.tree.TreeNode;
 
 public class SumOfLeftLeaves {
 	
