@@ -4,10 +4,10 @@ package com.practice.bit;
 public class AddSubstract2Nums {
 
 	public static void main(String[] args) {
-		int a = 3;
+		int a = 11;
 		int b = 5;
 		
-		System.out.println(~a+1);
+		System.out.println(Integer.toBinaryString(-12));
 		
 		System.out.println(subtract(a, b));
 

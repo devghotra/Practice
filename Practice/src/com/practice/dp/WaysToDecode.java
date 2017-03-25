@@ -31,8 +31,9 @@ public class WaysToDecode {
 		
 		for(int i=2; i<=a.length(); i++){
 			// concatenate with previous digit and create a num
-			//int num = Integer.parseInt(a.charAt(i-2)+""+a.charAt(i-1));
-			int num = (a.charAt(i-2) - '1') * 10 + (a.charAt(i-1) - '1');
+			int num = Integer.parseInt(a.charAt(i-2)+""+a.charAt(i-1));
+			
+			//int num = (a.charAt(i-2) - '1') * 10 + (a.charAt(i-1) - '1');
 			
 			// if num contains 0 and is not 10 or 20 then it cannot be decoded so return 0
 			if(num%10 == 0 && num/10 != 1 && num/10 != 2){

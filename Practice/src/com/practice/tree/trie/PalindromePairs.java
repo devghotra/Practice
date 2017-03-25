@@ -16,8 +16,9 @@ public class PalindromePairs {
 	public static void main(String[] args) {
 		PalindromePairs pp = new PalindromePairs();
 
-		// String[] words = { "abcd", "dcba", "lls", "s", "sssll"};
-		String[] words = { "a", "b", "c", "ab", "ac", "aa" };
+		//String[] words = { "a", "" };
+		String[] words = { "abcd", "dcba", "lls", "s", "sssll"};
+		//String[] words = { "a", "b", "c", "ab", "ac", "aa" };
 		List<List<Integer>> result = pp.palindromePairs(words);
 		System.out.println(result);
 	}
@@ -55,7 +56,7 @@ public class PalindromePairs {
 		}
 
 
-		for (Integer j : current.list) {
+		for (Integer j : current.palindroneIndexesSet) {
 			if (i != j) {
 				result.add(Arrays.asList(i, j));
 			}
@@ -74,12 +75,12 @@ public class PalindromePairs {
 				current.children.put(c, child);
 			}
 			if (isPalindrome(word, 0, i)) {
-				current.list.add(index);
+				current.palindroneIndexesSet.add(index);
 			}
 			current = child;
 		}
 
-		current.list.add(index);
+		current.palindroneIndexesSet.add(index);
 		current.index = index;
 		current.isEnd = true;
 	}
@@ -98,7 +99,7 @@ public class PalindromePairs {
 class TrieNode {
 
 	char val;
-	Set<Integer> list = new HashSet<>();
+	Set<Integer> palindroneIndexesSet = new HashSet<>();
 	Map<Character, TrieNode> children = new HashMap<>();
 	int index = -1;
 	boolean isEnd;
@@ -108,7 +109,7 @@ class TrieNode {
 	}
 
 	public String toString1() {
-		return "[val=" + val + ", idxPlnBlw=" + list + ", children=" + children + ", isEndIndex=" + index + "]";
+		return "[val=" + val + ", idxPlnBlw=" + palindroneIndexesSet + ", children=" + children + ", isEndIndex=" + index + "]";
 	}
 
 	public String toString() {

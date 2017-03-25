@@ -9,6 +9,7 @@ public class Flip {
 		// flip("101111111");
 
 		System.out.println(flip("1101010001"));
+		System.out.println(flip("101010010110"));
 	}
 
 	public static ArrayList<Integer> flip(String A) {

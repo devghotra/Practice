@@ -1,8 +1,6 @@
-package com.practice.problems.fb;
+package com.practice.tree;
 
-import com.practice.tree.TreeNode;
-
-public class SumOfLeftLeaves {
+public class SumOfLeftLeaves_LC {
 	
 	public static void main(String[] args) {
 		TreeNode one = new TreeNode(1);
@@ -20,18 +18,18 @@ public class SumOfLeftLeaves {
 		
 	}
 
-	private static int sumOfLeftLeaves(TreeNode root) {
-		return sumOfLeftLeaves(root, 0, false);
+	public static int sumOfLeftLeaves(TreeNode root) {
+		return sumOfLeftLeaves(root, false);
 	}
-
-	public static int sumOfLeftLeaves(TreeNode root, int sum, boolean isLeft) {
+    
+    public static int sumOfLeftLeaves(TreeNode root, boolean isLeft) {
 		if(root == null)
-			return sum;
+			return 0;
 		
 		if(root.left == null && root.right == null && isLeft)
-			return sum + root.val;
+			return root.val;
 		
-		return sumOfLeftLeaves(root.left, sum, true) + sumOfLeftLeaves(root.right, sum, false);
+		return sumOfLeftLeaves(root.left, true) + sumOfLeftLeaves(root.right, false);
 		
 	}
 }

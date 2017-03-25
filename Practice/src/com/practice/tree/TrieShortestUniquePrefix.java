@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+//Another approach - http://www.geeksforgeeks.org/lowest-common-ancestor-binary-tree-set-1/
 public class TrieShortestUniquePrefix {
 
 	public static void main(String[] args) {
@@ -54,13 +55,11 @@ public class TrieShortestUniquePrefix {
 	}
 
 	private String getShortestUniquePrefix(String word) {
-		String shortestUniquePrefix = "";
 		TrieNode current = root;
 
 		int lastSharedIndex = -1;
 		for (int i = 0; i < word.length(); i++) {
 			char c = word.charAt(i);
-			shortestUniquePrefix += c;
 			TrieNode child = current.childMap.get(c);
 			if (child != null && child.childMap.size() > 1) {
 				lastSharedIndex = i;
@@ -68,7 +67,7 @@ public class TrieShortestUniquePrefix {
 			current = child;
 		}
 
-		return lastSharedIndex == -1 ? shortestUniquePrefix.substring(0, 1) : shortestUniquePrefix.substring(0, lastSharedIndex + 2);
+		return lastSharedIndex == -1 ? word.substring(0, 1) : word.substring(0, lastSharedIndex + 2);
 	}
 
 	public ArrayList<String> prefix(ArrayList<String> words) {

@@ -1,6 +1,6 @@
 package com.practice.arrays;
 
-public class ThreeSum {
+public class ThreeSum_LC {
 
 	public static void main(String[] args) {
 		int[] a = {1,3,4,6,9,12};
@@ -13,7 +13,12 @@ public class ThreeSum {
 		}
 	}
 	
-	
+	/**
+	 * 
+	 * @param a - sorted array
+	 * @param sum - target sum
+	 * @return
+	 */
 	public static int[] checkThreeSum(int[] a, int sum){
 		
 		int[] result = new int[3];

@@ -45,10 +45,8 @@ public class AddSearchWords_LC {
 	}
 
 	private boolean dfs(TrieNode node, String word, int i) {
-		if (i == word.length() && node.isEnd == true)
-			return true;
-		if (i == word.length() && node.isEnd == false)
-			return false;
+		if (i == word.length())
+			return node.isEnd;
 
 		char c = word.charAt(i);
 		if (c == '.') {
@@ -62,14 +60,8 @@ public class AddSearchWords_LC {
 			return false;
 		} else {
 			TrieNode child = node.children[c - 'a'];
-			if (child == null) {
-				return false;
-			}
-			if (!dfs(child, word, i + 1))
-				return false;
+			return child == null ? false : dfs(child, word, i + 1);
 		}
-		return true;
-
 	}
 
 	static class TrieNode {
@@ -90,4 +82,3 @@ public class AddSearchWords_LC {
 
 	}
 }
-

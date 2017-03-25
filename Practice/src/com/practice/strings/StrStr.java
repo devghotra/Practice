@@ -8,7 +8,8 @@ public class StrStr {
 	// this is SK approach that works in O(n)
 
 	public static void main(String[] args) {
-		System.out.println(strStr("mississippi", "pi"));
+		System.out.println(strStr("samayakaur", "maya"));
+		// System.out.println(strStr("mississippi", "pi"));
 		// System.out.println(strStr("ississippi", "issip"));
 	}
 
@@ -50,7 +51,9 @@ public class StrStr {
 				if (needle.equals(haystack.substring(j - needle.length(), j)))
 					return j - needle.length();
 			}
+			
 			int a = current.get(haystack.charAt(j - needle.length()));
+			
 			current.put(haystack.charAt(j - needle.length()), a - 1);
 			current.put(haystack.charAt(j), current.get(haystack.charAt(j)) != null ? current.get(haystack.charAt(j)) + 1 : 1);
 		}

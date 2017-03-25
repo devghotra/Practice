@@ -7,36 +7,6 @@ public class MaxDistance {
 		System.out.println(maxIndexDiff(a, 9));
 	}
 
-	public static int maxDistance(int[] a) {
-
-		int maxDistance = -1;
-		int startIndex = 1;
-
-		if (a.length == 1)
-			return 0;
-
-		outer: for (int i = 0; i < a.length; i++) {
-			int distance = -1;
-			for (int j = startIndex; j < a.length; j++) {
-				if (a[j] >= a[i]) {
-					distance = j - i;
-				}
-			}
-
-			if (distance > maxDistance) {
-				maxDistance = distance;
-			}
-
-			startIndex = maxDistance == -1 ? i + 2 : i + maxDistance + 1;
-
-			if (startIndex >= a.length) {
-				break outer;
-			}
-		}
-
-		return maxDistance;
-	}
-
 	public static int maxIndexDiff(int arr[], int n) {
 		int maxDiff;
 		int i, j;

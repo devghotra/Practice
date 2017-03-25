@@ -18,15 +18,21 @@ String
 
 
 TreeMap
-1. TreeMap in Java acts as Heap 
+1. TreeMap in Java acts as BST (red black tree) 
 2. map.floorKey(key) returns the greatest key less than or equal to the given key, or null if there is no such key.
 
+Priority Queue
+1. Act as Heap 
+2. Insertion, Deletion, search given element - O(logN)
+3. Look up max or min element - O(1)
+
 Left-Right Approach
-Arrays -> Maximum Unsorted Subarray (IB)
-Arrays -> Product of Array Except Self(LC)
 1. Distribute Candies
 2. Max distance in Arrays
 3. Rain water trap
+4. Arrays -> Max distance 
+5. Arrays -> Maximum Unsorted Subarray (IB)
+6. Arrays -> Product of Array Except Self(LC)
 
 
 Window

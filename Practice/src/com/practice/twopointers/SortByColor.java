@@ -13,8 +13,8 @@ public class SortByColor {
 	}
 
 	public static void sortColors(ArrayList<Integer> nums) {
-		int p0 = 0;				// pointer for last valid position of 0
-		int p2 = nums.size()-1; // pointer for last valid position of 2
+		int p0 = 0;				// pointer for current valid position of 0
+		int p2 = nums.size()-1; // pointer for current valid position of 2
 
 		for (int i = 0; i < p2;) {
 			if (nums.get(i).intValue() == 0) {

@@ -35,6 +35,7 @@ public class NQueens {
 	
 	private boolean fillPositions(String[][] board, int row, int col){
 		
+		// if board[row][col] is already occupied then you cannot place the queen so return false
 		if(board[row][col] != null)
 			return false;
 		

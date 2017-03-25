@@ -41,11 +41,13 @@ public class SwapListNodesInPairs {
 			
 			// swap adjacent
 			n2.next = n1;
-			// connect with reordered list so far
-			prev.next = n2;
 			
 			// unlink from forward list (unordered list)
 			n1.next = null;
+			
+			// connect with reordered list so far
+			prev.next = n2;
+			
 			// set end of ordered list so far as prev
 			prev = n1;
 			

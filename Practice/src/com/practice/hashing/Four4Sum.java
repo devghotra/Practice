@@ -28,11 +28,13 @@ public class Four4Sum {
 
 		for (int i = 0; i <= input.size() - 4; i++) {
 			int num1 = input.get(i);
+			// skip if duplicate
 			if (i > 0 && num1 == input.get(i - 1)) {
 				continue;
 			}
 			for (int j = i + 1; j <= input.size() - 3; j++) {
 				int num2 = input.get(j);
+				// skip if duplicate
 				if (j - i > 1 && num2 == input.get(j - 1)) {
 					continue;
 				}

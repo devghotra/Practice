@@ -1,6 +1,6 @@
 package com.practice.arrays;
 
-public class Search2DMatrixII {
+public class Search2DMatrixII_LC {
 
 	public static void main(String[] args) {
 		int[][] matrix = {

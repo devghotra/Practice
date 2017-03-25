@@ -3,6 +3,7 @@ package com.practice.backtracking;
 import java.util.ArrayList;
 import java.util.Collections;
 
+//https://discuss.leetcode.com/topic/46162/a-general-approach-to-backtracking-questions-in-java-subsets-permutations-combination-sum-palindrome-partioning
 public class Subset {
 
 	public static void main(String[] args) {
@@ -15,42 +16,18 @@ public class Subset {
 
 	public ArrayList<ArrayList<Integer>> subsets(ArrayList<Integer> nums) {
 		Collections.sort(nums);
-		return subsets(nums, 0);
+		ArrayList<ArrayList<Integer>> result = new ArrayList<>();
+		backtrack(result, new ArrayList<>(), nums, 0);
+		return result;
 	}
 
-	public ArrayList<ArrayList<Integer>> subsets(ArrayList<Integer> nums, int index) {
-		ArrayList<ArrayList<Integer>> subsets = new ArrayList<>();
-		
-		if(nums.isEmpty()){
-			subsets.add(nums);
-			return subsets;
+	public void backtrack(ArrayList<ArrayList<Integer>> result, ArrayList<Integer> list, ArrayList<Integer> nums, int start) {
+		result.add(new ArrayList<>(list));
+		for (int i = start; i < nums.size(); i++) {
+			list.add(nums.get(i));
+			backtrack(result, list, nums, i+1);
+			list.remove(list.size()-1);
 		}
-
-		if (index == nums.size() - 1) {
-			ArrayList<Integer> singleSubset = new ArrayList<>();
-			singleSubset.add(nums.get(index));
-			subsets.add(singleSubset);
-		} else {
-			int num = nums.get(index);
-			ArrayList<Integer> singleNumSubset = new ArrayList<>();
-			singleNumSubset.add(num);
-			subsets.add(singleNumSubset);
-
-			ArrayList<ArrayList<Integer>> partialSubsets = subsets(nums, index + 1);
-			for (ArrayList<Integer> partialSubset : partialSubsets) {
-				ArrayList<Integer> subset = new ArrayList<>(partialSubset);
-				subset.add(0, num);
-				subsets.add(subset);
-			}
-			subsets.addAll(partialSubsets);
-		}
-
-		if (index == 0) {
-			ArrayList<Integer> emptySubset = new ArrayList<>();
-			subsets.add(0, emptySubset);
-		}
-
-		return subsets;
 	}
 
 }

@@ -1,8 +1,5 @@
 package com.practice.strings;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-
 public class PreetyJson {
 
 	public static void main(String[] args) {

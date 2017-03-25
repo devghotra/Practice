@@ -1,8 +1,6 @@
-package com.practice.problems.fb;
+package com.practice.tree;
 
-import com.practice.tree.TreeNode;
-
-public class InorderPredecessorBST {
+public class InorderPredecessorBST_LC {
 	
 	public TreeNode inorderPredecessor(TreeNode root, TreeNode node) {
 		TreeNode predecessor = null;
@@ -20,7 +18,7 @@ public class InorderPredecessorBST {
 	}
 
 	public static void main(String[] args) {
-		InorderPredecessorBST inst = new InorderPredecessorBST();
+		InorderPredecessorBST_LC inst = new InorderPredecessorBST_LC();
 		
 		TreeNode root = new TreeNode(5);
 		TreeNode three = new TreeNode(3);

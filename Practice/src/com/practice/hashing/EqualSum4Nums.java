@@ -10,9 +10,9 @@ public class EqualSum4Nums {
 
 	public static void main(String[] args) {
 		EqualSum4Nums inst = new EqualSum4Nums();
-		// Integer[] input = { 3, 4, 7, 1, 2, 9, 8 };
-		// Integer[] input = { 1,2,4,6,2,1,1,2 };
-		Integer[] input = { 9, 5, 4, 9, 3, 6, 8, 7, 1, 2, 8, 7, 2, 9, 7, 1, 3, 9, 7, 8, 1, 0, 5, 5 };
+		Integer[] input = { 3, 4, 7, 1, 2, 9, 8 };
+		//Integer[] input = { 1,2,4,6,2,1,1,2 };
+		//Integer[] input = { 9, 5, 4, 9, 3, 6, 8, 7, 1, 2, 8, 7, 2, 9, 7, 1, 3, 9, 7, 8, 1, 0, 5, 5 };
 		System.out.println(inst.equal(Arrays.asList(input)));
 
 	}

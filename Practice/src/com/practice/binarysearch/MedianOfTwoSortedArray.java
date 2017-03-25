@@ -1,5 +1,7 @@
 package com.practice.binarysearch;
 
+import java.util.List;
+
 public class MedianOfTwoSortedArray {
 
 	public static void main(String[] args) {
@@ -37,6 +39,42 @@ public class MedianOfTwoSortedArray {
 
 		int aVal = astart + m - 1 <= aend ? a[astart + m - 1] : Integer.MAX_VALUE;
 		int bVal = bstart + m - 1 <= bend ? b[bstart + m - 1] : Integer.MAX_VALUE;
+
+		if (aVal <= bVal) {
+			return findMedianSortedArrays(a, b, astart + m, aend, bstart, bend, pos - m);
+		} else {
+			return findMedianSortedArrays(a, b, astart, aend, bstart + m, bend, pos - m);
+		}
+	}
+	
+	
+	// Same solution for IB
+	public double findMedianSortedArrays(final List<Integer> a, final List<Integer> b) {
+		int totalElements = a.size() + b.size();
+
+		int medianPos = totalElements / 2;
+		if (totalElements % 2 == 0) {
+			double m1 = findMedianSortedArrays(a, b, 0, a.size() - 1, 0, b.size() - 1, medianPos);
+			double m2 = findMedianSortedArrays(a, b, 0, a.size() - 1, 0, b.size() - 1, medianPos + 1);
+			return (m1 + m2) / 2;
+		} else {
+			return findMedianSortedArrays(a, b, 0, a.size() - 1, 0, b.size() - 1, medianPos + 1);
+		}
+	}
+	
+	private static int findMedianSortedArrays(final List<Integer> a, final List<Integer> b, int astart, int aend, int bstart, int bend, int pos) {
+		if (astart > aend) {
+			return b.get(bstart + pos - 1);
+		} else if (bstart > bend) {
+			return a.get(astart + pos - 1);
+		} else if (pos == 1) {
+			return a.get(astart) < b.get(bstart) ? a.get(astart) : b.get(bstart);
+		}
+
+		int m = pos / 2;
+
+		int aVal = astart + m - 1 <= aend ? a.get(astart + m - 1) : Integer.MAX_VALUE;
+		int bVal = bstart + m - 1 <= bend ? b.get(bstart + m - 1) : Integer.MAX_VALUE;
 
 		if (aVal <= bVal) {
 			return findMedianSortedArrays(a, b, astart + m, aend, bstart, bend, pos - m);

@@ -6,31 +6,26 @@ public class Combinations {
 
 	public static void main(String[] args) {
 		Combinations c = new Combinations();
-		System.out.println(c.combine(4, 5));
-	}
-	
-	public ArrayList<ArrayList<Integer>> combine(int n, int k){
-		return combine(n, k, 1);
+		System.out.println(c.combine(4, 2));
 	}
 
-	public ArrayList<ArrayList<Integer>> combine(int n, int k, int beginFrom) {
-		ArrayList<ArrayList<Integer>> combinations = new ArrayList<>();
+	public ArrayList<ArrayList<Integer>> combine(int n, int k) {
+		ArrayList<ArrayList<Integer>> result = new ArrayList<>();
+		backtrack(result, new ArrayList<>(), n, k, 1);
+		return result;
+	}
 
-		for (int i = beginFrom; i <= n; i++) {
-			if(k == 1){
-				ArrayList<Integer> partialComb = new ArrayList<>();
-				partialComb.add(i);
-				combinations.add(partialComb);
-			} else{
-				ArrayList<ArrayList<Integer>> partialCombinations = combine(n, k-1, i+1);
-				for(ArrayList<Integer> partialComb : partialCombinations){
-					partialComb.add(0,i);
-					combinations.add(partialComb);
-				}
-			}
+	public void backtrack(ArrayList<ArrayList<Integer>> result, ArrayList<Integer> list, int n, int k, int start) {
+		if(list.size() == k){
+			result.add(new ArrayList<>(list));
+			return;
 		}
-
-		return combinations;
+		
+		for (int i = start; i <= n; i++) {
+			list.add(i);
+			backtrack(result, list, n, k, i + 1);
+			list.remove(list.size() - 1);
+		}
 	}
 
 }

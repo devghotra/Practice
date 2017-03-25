@@ -3,10 +3,10 @@ package com.practice.heapsmaps;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 
-public class LRU {
+public class LRUCache {
 
 	public static void main(String[] args) {
-		LRU lru = new LRU(2);
+		LRUCache lru = new LRUCache(2);
 
 		lru.get(2);
 		lru.set(2, 6);
@@ -22,7 +22,7 @@ public class LRU {
 	private int size = 0;
 	private LinkedHashMap<Integer, Integer> cache = new LinkedHashMap<>();
 
-	public LRU(int size) {
+	public LRUCache(int size) {
 		this.size = size;
 	}
 

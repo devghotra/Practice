@@ -5,6 +5,7 @@ import java.util.Iterator;
 // Java Iterator interface reference:
 //https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html
 // LC Problem - https://leetcode.com/problems/peeking-iterator/?tab=Description
+// Apple
 public class PeekingIterator implements Iterator<Integer> {
 
 	private Iterator<Integer> itr;

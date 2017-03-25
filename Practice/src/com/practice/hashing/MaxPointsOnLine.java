@@ -73,11 +73,11 @@ public class MaxPointsOnLine {
 		double xx = p2.x - p1.x;
 		// horizontal scope
 		if (xx == 0) 
-			return 0.0;
+			return Double.MAX_VALUE;
 		
 		// vertical scope
 		if (yy == 0) 
-			return Double.MAX_VALUE;
+			return 0.0;
 		
 		return (yy / xx);
 	}
