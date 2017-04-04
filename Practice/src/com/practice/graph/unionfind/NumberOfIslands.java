@@ -67,6 +67,7 @@ public class NumberOfIslands {
 		int childRoot = findSet(childIndex, unionSet);
 		int parentRoot = findSet(parentIndex, unionSet);
 		
+		// put the child in the same set as of parent
 		unionSet[childRoot] = unionSet[parentRoot];
 	}
 	

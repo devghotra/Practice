@@ -15,7 +15,7 @@ public class DistinctSubsequence {
 	 * diagonal val - number of distinct subsequences without considering Ith and Jth element 
 	 * previous val - subsequences already made including Ith element but not the Jth element
 	 * 
-	 * RABBBIT - RABBIT
+	 * RABBBIT -> RABBIT
 	 * 
 	 * 		_	R	A	B	B	B	I	T
 		_	1	1	1	1	1	1	1	1

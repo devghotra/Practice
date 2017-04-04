@@ -1,9 +1,9 @@
 package com.practice.graph;
 
-public class LongestIncreasingPathInMatrix {
+public class LongestIncreasingPathInMatrix_LC {
 
 	public static void main(String[] args) {
-		LongestIncreasingPathInMatrix inst = new LongestIncreasingPathInMatrix();
+		LongestIncreasingPathInMatrix_LC inst = new LongestIncreasingPathInMatrix_LC();
 		int[][] matrix = {
 				{6,5,4},
 				{7,2,3},

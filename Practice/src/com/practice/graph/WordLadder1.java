@@ -2,10 +2,8 @@ package com.practice.graph;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
@@ -26,13 +24,13 @@ public class WordLadder1 {
 
 	public int ladderLength(String beginWord, String endWord, Set<String> dictionary) {
 		int minSeqLength = 0;
-		Map<String, Node> visited = new HashMap<>();
+		Set<String> visited = new HashSet<>();
 
 		dictionary.add(endWord);
 		Queue<Node> Q = new LinkedList<>();
 		Node beingNode = new Node(beginWord, 0);
 		Q.add(beingNode);
-		visited.put(beginWord, beingNode);
+		visited.add(beginWord);
 
 		while (!Q.isEmpty()) {
 			Node n = Q.poll();
@@ -44,15 +42,13 @@ public class WordLadder1 {
 			}
 
 			ArrayList<Node> nextNodes = getNextNodes(visited, n, dictionary);
-			for (Node nextNode : nextNodes) {
-				Q.add(nextNode);
-			}
+			Q.addAll(nextNodes);
 		}
 
 		return minSeqLength;
 	}
 
-	private ArrayList<Node> getNextNodes(Map<String, Node> visited, Node currentNode, Set<String> dictionary) {
+	private ArrayList<Node> getNextNodes(Set<String> visited, Node currentNode, Set<String> dictionary) {
 		ArrayList<Node> nextNodes = new ArrayList<>();
 
 		String word = currentNode.word;
@@ -63,10 +59,10 @@ public class WordLadder1 {
 				String s = new String(charArr);
 
 				if (dictionary.contains(s)) {
-					if (!visited.containsKey(s)) {
+					if (!visited.contains(s)) {
 						Node nextNode = new Node(s, currentNode.step + 1);
 						nextNodes.add(nextNode);
-						visited.put(s, nextNode);
+						visited.add(s);
 					}
 				}
 			}

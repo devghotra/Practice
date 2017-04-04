@@ -1,5 +1,7 @@
 package com.practice.graph.dfs;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 public class Maze {
@@ -22,6 +24,7 @@ public class Maze {
 
 	}
 
+	// BFS
 	public boolean hasPath(int[][] maze, int[] start, int[] destination) {
 		int numRows = maze.length;
 		int numCols = maze[0].length;
@@ -29,23 +32,23 @@ public class Maze {
 		boolean[][] visited = new boolean[numRows][numCols];
 		
 
-		Stack<BallState> stack = new Stack<>();
-		stack.push(new BallState(start[0], start[1]));
+		Queue<BallState> queue = new LinkedList<>();
+		queue.add(new BallState(start[0], start[1]));
 		visited[start[0]][start[1]] = true;
 
-		while (!stack.isEmpty()) {
-			BallState current = stack.pop();
+		while (!queue.isEmpty()) {
+			BallState current = queue.poll();
 			
 			if (current.x == destination[0] && current.y == destination[1])
 				return true;
 			
-			populateEndLocations(current, maze, stack, visited);
+			populateEndLocations(current, maze, queue, visited);
 		}
 
 		return false;
 	}
 
-	private void populateEndLocations(BallState current, int[][] maze, Stack<BallState> stack, boolean[][] visited) {
+	private void populateEndLocations(BallState current, int[][] maze, Queue<BallState> queue, boolean[][] visited) {
 
 		int numRows = maze.length;
 		int numCols = maze[0].length;
@@ -62,7 +65,7 @@ public class Maze {
 			yy -= dir[i][1];
 			
 			if(!visited[xx][yy]){
-				stack.push(new BallState(xx, yy));
+				queue.add(new BallState(xx, yy));
 				visited[xx][yy] = true;
 			}
 		}

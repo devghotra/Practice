@@ -51,9 +51,7 @@ public class WordLadder2 {
 			}
 
 			ArrayList<Node> nextNodes = getNextNodes(visited, n, dictionary);
-			for (Node nextNode : nextNodes) {
-				Q.add(nextNode);
-			}
+			Q.addAll(nextNodes);
 		}
 
 		return result;

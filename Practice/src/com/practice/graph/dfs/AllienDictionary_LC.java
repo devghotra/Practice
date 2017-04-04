@@ -1,15 +1,21 @@
-package com.practice.graph;
+package com.practice.graph.dfs;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+import java.util.Set;
 import java.util.Stack;
 
-public class AllienDictionary {
+public class AllienDictionary_LC {
 
 	public static void main(String[] args) {
 		
-		AllienDictionary ad = new AllienDictionary();
+		AllienDictionary_LC ad = new AllienDictionary_LC();
 		String[] words = {"zy", "zx"};
 			//{ "baa", "abcd", "abca", "cab", "cad"};
 		System.out.println(ad.alienOrder(words));
@@ -96,6 +102,72 @@ public class AllienDictionary {
 			}
 		}
 		return graph;
+	}
+	
+	//https://discuss.leetcode.com/topic/28308/java-ac-solution-using-bfs
+	public String alienOrder_bfs_topoSort(String[] words) {
+		Map<Character, Set<Character>> map = new HashMap<Character, Set<Character>>();
+		Map<Character, Integer> degree = new HashMap<Character, Integer>();
+		String result = "";
+		
+		if (words == null || words.length == 0)
+			return result;
+		
+		for (String s : words) {
+			for (char c : s.toCharArray()) {
+				degree.put(c, 0);
+			}
+		}
+		
+		for (int i = 0; i < words.length - 1; i++) {
+			String cur = words[i];
+			String next = words[i + 1];
+			int length = Math.min(cur.length(), next.length());
+			for (int j = 0; j < length; j++) {
+				char biggerChar = cur.charAt(j);
+				char smallerChar = next.charAt(j);
+				if (biggerChar != smallerChar) {
+					
+					Set<Character> set = null;
+					if (map.containsKey(biggerChar))
+						set = map.get(biggerChar);
+					else{
+						set = new HashSet<Character>();
+						map.put(biggerChar, set);
+					}
+					
+					if (!set.contains(smallerChar)) {
+						set.add(smallerChar);
+						degree.put(smallerChar, degree.get(smallerChar) + 1);
+					}
+					break;
+				}
+			}
+		}
+		
+		Queue<Character> q = new LinkedList<Character>();
+		for (char c : degree.keySet()) {
+			if (degree.get(c) == 0)
+				q.add(c);
+		}
+		
+		while (!q.isEmpty()) {
+			char c = q.remove();
+			result += c;
+			if (map.containsKey(c)) {
+				Set<Character> biggerCharSet = map.get(c);
+				for (char c2 : biggerCharSet) {
+					degree.put(c2, degree.get(c2) - 1);
+					if (degree.get(c2) == 0)
+						q.add(c2);
+				}
+			}
+		}
+		
+		if (result.length() != degree.size())
+			return "";
+		
+		return result;
 	}
 
 }

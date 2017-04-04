@@ -29,14 +29,16 @@ public class CourseSchedule {
 	        int pre = prerequisites[i][1];
 	        if (matrix[pre][course] == 0)
 	            numOfPreReqOfCourse[course]++; //duplicate case
-	        matrix[pre][course] = 1;
+	        matrix[pre][course] = 1;		   // matrix[i][j]=1 implies course i is pre-req of course j
 	    }
 	    
 	    int count = 0;
 	    Queue<Integer> queue = new LinkedList<>();
 	    for (int i=0; i<numOfPreReqOfCourse.length; i++) {
-	        if (numOfPreReqOfCourse[i] == 0) queue.offer(i);
+	        if (numOfPreReqOfCourse[i] == 0) 
+	        	queue.offer(i);
 	    }
+	    
 	    while (!queue.isEmpty()) {
 	        int course = queue.poll();
 	        count++;
@@ -60,7 +62,7 @@ public class CourseSchedule {
 		}
 		
 		boolean[] visited = new boolean[numCourses];
-		Set<Integer> onStack = new HashSet<>();
+		Set<Integer> underProcessing = new HashSet<>();
 		
 		for (int i = 0; i < prerequisites.length; i++) {
 			int[] pr = prerequisites[i];
@@ -68,7 +70,7 @@ public class CourseSchedule {
 		}
 		
 		for (int i = 0; i < numCourses; i++) {
-			if(!visited[i] && !dfs(graph, i, visited, onStack)){
+			if(!visited[i] && !dfs(graph, i, visited, underProcessing)){
 				return false;
 			}
 		}
@@ -77,28 +79,28 @@ public class CourseSchedule {
 		return true;
 	}
 	
-	private static boolean dfs(List<List<Integer>> graph, int course, boolean[] visited, Set<Integer> onStack){
+	private static boolean dfs(List<List<Integer>> graph, int course, boolean[] visited, Set<Integer> underProcessing){
 		
 		Stack<Integer> stack = new Stack<>();
 		stack.push(course);
-		onStack.add(course);
+		underProcessing.add(course);
 		
 		while(!stack.isEmpty()){
 			int pc = stack.peek();
 			Integer nextChild = getNextUnvisitedChild(graph, visited, pc);
 			
 			if(nextChild != null){
-				if(onStack.contains(nextChild)){
-					return false;
+				if(underProcessing.contains(nextChild)){
+					return false; // cycle
 				}
 				
 				stack.push(nextChild);
-				onStack.add(nextChild);
+				underProcessing.add(nextChild);
 				continue;
 			} else{
 				pc = stack.pop();
 				visited[pc] = true;
-				onStack.remove(pc);
+				underProcessing.remove(pc);
 			}
 			
 			

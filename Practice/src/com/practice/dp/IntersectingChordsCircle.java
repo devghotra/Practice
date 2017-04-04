@@ -27,6 +27,8 @@ public class IntersectingChordsCircle {
 				counts[i] = counts[i]
 							.add(counts[(j-2)/2].multiply(counts[(points-j)/2])
 							.mod(modOf)).mod(modOf);
+				
+				// dp[i] = dp[i] + dp[(j-2)/2] * dp[(points-j)/2];
 			}
 		}
 		

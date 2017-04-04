@@ -3,10 +3,10 @@ package com.practice.backtracking;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FactorCombinations {
+public class FactorCombinations_LC {
 
 	public static void main(String[] args) {
-		FactorCombinations fc = new FactorCombinations();
+		FactorCombinations_LC fc = new FactorCombinations_LC();
 		List<List<Integer>> result = fc.getFactors(16);
 		for(List<Integer> r : result){
 			System.out.println(r);
@@ -23,7 +23,7 @@ public class FactorCombinations {
 	    if (n <= 1) {
 	    	// to avoid combination that just contains the number itself
 	        if (combination.size() > 1) {
-	            result.add(combination);
+	        	result.add(new ArrayList<Integer>(combination));
 	        }
 	        return;
 	    }

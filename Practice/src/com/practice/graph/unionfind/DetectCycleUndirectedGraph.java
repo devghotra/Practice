@@ -1,4 +1,4 @@
-package com.practice.graph;
+package com.practice.graph.unionfind;
 
 // We can use DFS or union find algo to detect cycle in graph
 // DFS - can be used for both directed and undirected graphs

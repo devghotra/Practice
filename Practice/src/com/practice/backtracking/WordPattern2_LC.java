@@ -3,13 +3,13 @@ package com.practice.backtracking;
 import java.util.HashMap;
 import java.util.Map;
 
-public class WordPattern2 {
+public class WordPattern2_LC {
 
 	static Map<Character, String> patternToStrMap = new HashMap<>();
 	static Map<String, Character> strToPatternMap = new HashMap<>();
 
 	public static void main(String[] args) {
-		System.out.println(wordPatternMatch("abab", "abab"));
+		System.out.println(wordPatternMatch("ab", "aa"));
 	}
 
 	public static boolean wordPatternMatch(String pattern, String str) {
@@ -28,7 +28,7 @@ public class WordPattern2 {
 
 		for (int j = strIndex; j < str.length(); j++) {
 			// if its repeating pattern cut a string of previous match length and compare with previous match
-			// if matched call recursively with next pattern and string starting after current match word else return false
+			// if matched call recursively with next pattern and string starting after current matched word else return false
 			if (patternToStrMap.containsKey(p)) {
 				String prevMatch = patternToStrMap.get(p);
 				String match = strIndex + prevMatch.length() <= str.length() ? str.substring(strIndex, strIndex + prevMatch.length()) : "";
@@ -36,6 +36,9 @@ public class WordPattern2 {
 			} else {
 				String match = str.substring(strIndex, j + 1);
 
+				// current pattern (p) do not have any string match (match) - since we are in else block
+				// but if this potential match already has a pattern then we cannot use this as potential match, 
+				// so just continue to try another potential match
 				if (strToPatternMap.containsKey(match))
 					continue;
 

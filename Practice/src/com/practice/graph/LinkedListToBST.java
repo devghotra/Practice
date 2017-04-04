@@ -33,6 +33,9 @@ public class LinkedListToBST {
 	public TreeNode sortedListToBST(ListNode head) {
 		if(head == null)
 			return null;
+			
+		if(head.next == null)
+		    return new TreeNode(head.val);
 		
 		ListNode fast = head;
 		ListNode slow = head;
@@ -45,13 +48,11 @@ public class LinkedListToBST {
 			slow = slow.next;
 		}
 		
-		TreeNode root = new TreeNode(slow.val);
+		slowPrev.next = null;
 		
-		if(head != slow){
-			slowPrev.next = null;
-			root.left = sortedListToBST(head);
-			root.right = sortedListToBST(slow.next);
-		}
+		TreeNode root = new TreeNode(slow.val);
+		root.left = sortedListToBST(head);
+		root.right = sortedListToBST(slow.next);
 		
 		
 		return root;
