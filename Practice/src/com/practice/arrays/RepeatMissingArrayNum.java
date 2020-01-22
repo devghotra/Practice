@@ -50,6 +50,32 @@ public class RepeatMissingArrayNum {
 		
 		return res;
 	}
+
+    public ArrayList<Integer> repeatedNumber1(final List<Integer> nums) {
+
+        // a2 - b2 = (a+b)(a-b)
+        // a - duplicate
+        // b - missing num
+
+        long aMinusb = 0;
+        long a2Minusb2 = 0;
+
+        for (int i = 0; i < nums.size(); i++) {
+            aMinusb += nums.get(i) - (i + 1);
+            a2Minusb2 += nums.get(i) * nums.get(i) - (i + 1) * (i + 1);
+        }
+
+        long aPlusb = a2Minusb2/aMinusb;
+
+        long a = (aPlusb + aMinusb)/2;
+        long b = aPlusb - a;
+
+        ArrayList<Integer> res = new ArrayList<>();
+        res.add((int)a);
+        res.add((int)b);
+
+        return res;
+    }
 	
 	
 

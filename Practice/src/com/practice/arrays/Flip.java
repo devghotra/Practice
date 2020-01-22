@@ -12,46 +12,34 @@ public class Flip {
 		System.out.println(flip("101010010110"));
 	}
 
-	public static ArrayList<Integer> flip(String A) {
+    public static ArrayList<Integer> flip(String A) {
+        ArrayList<Integer> result = new ArrayList<>();
 
-		char[] arr = A.toCharArray();
+        int maxEffect = 0;
+        int effect = 0;
+        int start = 0;
 
-		int maxSumSoFar = 0;
-		int lastSum = 0;
+        for (int i = 0; i < A.length(); i++) {
+            if (A.charAt(i) == '0') {
+                effect++;
+            } else {
+                effect--;
+            }
 
-		int max_start_index = 0;
-		int max_end_index = -1;
+            if (effect > maxEffect) {
+                maxEffect = effect;
+                result.clear();
+                result.add(start + 1);
+                result.add(i + 1);
+            }
 
-		int startIndex = 0;
+            if (effect < 0) {
+                effect = 0;
+                start = i + 1;
+            }
+        }
 
-		for (int i = 0; i < arr.length; i++) {
-			
-			lastSum = arr[i] == '0' ? lastSum+1 : lastSum-1;
-
-			if (lastSum > maxSumSoFar) {
-				maxSumSoFar = lastSum;
-
-				max_start_index = startIndex;
-				max_end_index = i;
-			}
-
-			if (lastSum < 0) {
-				startIndex = i + 1;
-				lastSum = 0;
-			}
-
-		}
-
-		ArrayList<Integer> result = new ArrayList<Integer>();
-		if (max_end_index == -1) {
-			return result;
-		}
-
-		result.add(max_start_index + 1);
-		result.add(max_end_index + 1);
-
-		return result;
-
-	}
+        return result;
+    }
 
 }

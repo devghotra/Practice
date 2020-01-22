@@ -53,20 +53,15 @@ public class MaxSumContiguousSubArray {
 		System.out.println(maxSubArray(Arrays.asList(a1)));
 	}
 
-	public static int maxSubArray(final List<Integer> a) {
-		int maxSum = Integer.MIN_VALUE;
-		int contiguousSum = 0;
-		
-		for (int num : a) {
-			contiguousSum += num;
-			maxSum = Math.max(maxSum, contiguousSum);
-			
-			if(contiguousSum < 0){
-				contiguousSum = 0;
-			}
-			
-		}
-		
-		return maxSum;
-	}
+    public static int maxSubArray(final List<Integer> a) {
+        int maxSum = a.get(0);
+        int contiguousSum = a.get(0);
+
+        for (int i = 1; i < a.size(); i++) {
+            contiguousSum = Math.max(contiguousSum + a.get(i), a.get(i));
+            maxSum = Math.max(maxSum, contiguousSum);
+        }
+
+        return maxSum;
+    }
 }
