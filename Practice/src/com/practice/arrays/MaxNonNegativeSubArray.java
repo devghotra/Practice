@@ -12,44 +12,38 @@ public class MaxNonNegativeSubArray {
 	}
 	
 	public static List<Integer> maxset(List<Integer> a) {
-	    
-		long maxSum = 0;
-		long currentSum = 0;
-		
-		int maxArrStart = -1;
-		int maxArrEnd = -1;
-		int currentArrStart = -1;
-		int currentArrEnd = -1;
-		
-		for(int i=0; i<a.size(); i++){
-			if(a.get(i) < 0){
-				currentArrStart = -1;
-				currentSum = 0;
-				continue;
-			}
-			
-			if(currentArrStart == -1){
-				currentArrStart = i;
-			}
-			
-			currentSum += a.get(i);
-			currentArrEnd = i;
-			
-			if(currentSum > maxSum || (currentSum == maxSum && (currentArrEnd - currentArrStart) > (maxArrEnd - maxArrStart))){
-				maxSum = currentSum;
-				maxArrStart = currentArrStart;
-				maxArrEnd = i;
-			}
-		}
-		
-		ArrayList<Integer> max = new ArrayList<>();
-		if(maxArrStart > -1){
-			for(int i = maxArrStart; i <= maxArrEnd; i++){
-				max.add(a.get(i));
-			}
-		}
-		
-		return max;
+        int maxSumStartIndex = -1;
+        int maxSumEndIndex = -1;
+        long maxSum = 0;
+
+        long sum = 0;
+        int start = 0;
+
+        for (int i = 0; i < a.size(); i++) {
+            if (a.get(i) < 0) {
+                sum = 0;
+                start = i + 1;
+                continue;
+            } else {
+                sum = sum + a.get(i);
+            }
+
+            if (sum == maxSum && (i - start > maxSumEndIndex - maxSumStartIndex)) {
+                maxSumStartIndex = start;
+                maxSumEndIndex = i;
+            } else if (sum > maxSum) {
+                maxSum = sum;
+                maxSumStartIndex = start;
+                maxSumEndIndex = i;
+            }
+        }
+
+        ArrayList<Integer> result = new ArrayList<>();
+        if (maxSumStartIndex != -1) {
+            result.addAll(a.subList(maxSumStartIndex, maxSumEndIndex + 1));
+        }
+
+        return result;
 	}
 
 }

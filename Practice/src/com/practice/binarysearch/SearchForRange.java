@@ -1,60 +1,61 @@
 package com.practice.binarysearch;
 
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+
 public class SearchForRange {
 
-	public static void main(String[] args) {
-		//int[] arr = { 5, 7, 7, 8, 8, 10 };
-		Integer[] arr = {1,1,1,1,1,1,1};
+    public ArrayList<Integer> searchRange(final List<Integer> nums, int target) {
+        ArrayList<Integer> result = new ArrayList<>();
+        result.add(nums.size());
+        result.add(-1);
 
-		ArrayList<Integer> result = searchRange(Arrays.asList(arr), 1);
-		System.out.println(result.toString());
+        searchRange(nums, target, 0, nums.size() - 1, result);
 
-	}
-	
-	public static ArrayList<Integer> searchRange(final List<Integer> nums, int target) {
-        return search(nums, target, 0, nums.size()-1);
+        if (result.get(1) == -1) {
+            result.set(0, -1);
+        }
+
+        return result;
+
     }
 
-	public static ArrayList<Integer> search(List<Integer> nums, int target, int low, int high) {
+    private void searchRange(final List<Integer> nums, int target, int start, int end, List<Integer> result) {
 
-		ArrayList<Integer> result = new ArrayList<>();
-		if(nums.get(low).equals(target) && nums.get(high).equals(target)){
-			result.add(low);
-			result.add(high);
-			return result;
-		}
-		
-		while (low <= high) {
-			int mid = (low + high) / 2;
-			if (nums.get(mid) < target) {
-				low = mid + 1;
-			} else if (nums.get(mid) > target) {
-				high = mid - 1;
-			} else {
-				ArrayList<Integer> start = null;
-				ArrayList<Integer> end = null;
-				if(mid-1 >= 0 && nums.get(mid-1) == target){
-					start = search(nums, target, low, mid - 1);
-				}
-				
-				if(mid+1 < nums.size() && nums.get(mid+1) == target){
-					end = search(nums, target, mid+1, high);
-				}
-				
-				result.add(start == null ? mid : start.get(0));
-				result.add(end == null ? mid : end.get(1));
-				
-				return result;
-			}
-		}
-		
-		result.add(-1);
-		result.add(-1);
-		return result;
-	}
+        if (start <= end) {
+            int mid = (start + end) / 2;
+            if (nums.get(mid) == target) {
+                result.set(0, Math.min(result.get(0), mid));
+                result.set(1, Math.max(result.get(1), mid));
+            }
+
+            searchRange(nums, target, start, mid - 1, result);
+            searchRange(nums, target, mid + 1, end, result);
+        }
+    }
+
+    @Test
+    public void test() {
+        ArrayList<Integer> r = searchRange(Arrays.asList(5, 7, 7, 8, 8, 8, 10), 8);
+        assertEquals(3, r.get(0).intValue());
+        assertEquals(5, r.get(1).intValue());
+
+        ArrayList<Integer> r1 = searchRange(Arrays.asList(5), 5);
+        assertEquals(0, r1.get(0).intValue());
+        assertEquals(0, r1.get(1).intValue());
+
+        ArrayList<Integer> r2 = searchRange(Arrays.asList(5, 7, 7, 8, 8, 8, 10), 15);
+        assertEquals(-1, r2.get(0).intValue());
+        assertEquals(-1, r2.get(1).intValue());
+
+        ArrayList<Integer> r3 = searchRange(Arrays.asList(), 15);
+        assertEquals(-1, r3.get(0).intValue());
+        assertEquals(-1, r3.get(1).intValue());
+    }
 
 }

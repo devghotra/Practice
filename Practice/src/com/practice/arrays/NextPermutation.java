@@ -36,7 +36,8 @@ public class NextPermutation {
 		}
 		
 		// starting from end find a number which is greater than previous number
-		// number - number greater than previous & index - index of number
+		// number - number greater than previous &
+        // index - index of number
 		// if no such number found than list is in desc order and there is no greater permutation
 		boolean arranged = false;
 		int index = -1;

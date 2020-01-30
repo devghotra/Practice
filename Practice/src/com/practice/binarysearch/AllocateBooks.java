@@ -21,8 +21,8 @@ public class AllocateBooks {
 		while (lowestPagesPerStudent < highestPagesPerStudent) {
 			int mid = lowestPagesPerStudent + (highestPagesPerStudent-lowestPagesPerStudent) / 2;
 			
-			int paintersReq = getStudentsRequired(books, mid);
-			if(paintersReq <= numStudents){
+			int studentsRequired = getStudentsRequired(books, mid);
+			if(studentsRequired <= numStudents){
 				highestPagesPerStudent = mid;
 			} else{
 				lowestPagesPerStudent = mid+1;

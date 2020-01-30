@@ -6,7 +6,7 @@ import java.util.List;
 public class SpriralOrderMatrix {
 		
 		public ArrayList<Integer> spiralOrder(final List<ArrayList<Integer>> a) {
-			 ArrayList<Integer> result = new ArrayList<Integer>();
+			 ArrayList<Integer> result = new ArrayList<>();
 			 
 			 if(a == null || a.isEmpty() || a.get(0) == null || a.get(0).isEmpty())
 			    return result;

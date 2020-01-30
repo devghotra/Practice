@@ -24,17 +24,11 @@ public class LargestNumber {
 		StringBuilder res = new StringBuilder();
 		
 		Collections.sort(a, (n1, n2) -> (n1+""+n2).compareTo(n2+""+n1));
-		
-		boolean allZeros = true;
 		for(Integer num : a){
-			if(allZeros && num != 0){
-				allZeros = false;
-			}
-			
 			res.append(num);
 		}
-		
-		return allZeros ? "0" : res.toString();
+
+        return a.get(0) == 0 ? "0" : res.toString();
 	}
 	
 }
