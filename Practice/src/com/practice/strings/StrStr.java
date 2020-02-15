@@ -1,70 +1,42 @@
 package com.practice.strings;
 
-import java.util.HashMap;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class StrStr {
 
-	// 2 approaches, also check CheckIfSubstring.
-	// this is SK approach that works in O(n)
+    @Test
+    public void test() {
+        assertEquals(2, strStr("samayakaur", "maya"));
+        assertEquals(9, strStr("mississippi", "pi"));
+        assertEquals(3, strStr("ississippi", "issip"));
+        assertEquals(0, strStr("ississippi", "ississippi"));
+    }
 
-	public static void main(String[] args) {
-		System.out.println(strStr("samayakaur", "maya"));
-		// System.out.println(strStr("mississippi", "pi"));
-		// System.out.println(strStr("ississippi", "issip"));
-	}
+    public int strStr(String haystack, String needle) {
 
-	public static int strStr(final String haystack, final String needle) {
-		if (needle.length() > haystack.length()) {
-			return -1;
-		}
-		if (needle.isEmpty()) {
-			return 0;
-		}
-		HashMap<Character, Integer> target = new HashMap<>();
-		HashMap<Character, Integer> current = new HashMap<>();
+        if (needle.isEmpty())
+            return 0;
 
-		for (int i = 0; i < needle.length(); i++) {
-			char c = needle.charAt(i);
-			if (target.containsKey(c)) {
-				target.put(c, target.get(c) + 1);
-			} else {
-				target.put(c, 1);
-			}
-		}
+        int j = 0;
+        for (int i = 0; i < haystack.length(); i++) {
+            char h = haystack.charAt(i);
+            char n = needle.charAt(j);
 
-		for (int i = 0; i < needle.length(); i++) {
-			char c = haystack.charAt(i);
-			if (current.containsKey(c)) {
-				current.put(c, current.get(c) + 1);
-			} else {
-				current.put(c, 1);
-			}
-		}
-		if (checkCurrent(current, target)) {
-			if (needle.equals(haystack.substring(0, needle.length())))
-				return 0;
-		}
-		int j = 0;
-		for (j = needle.length(); j < haystack.length(); j++) {
+            if (h == n) {
+                j++;
+                if (j == needle.length()) {
+                    return i - (j - 1);
+                }
+            } else {
+                // take back i to one position ahead of last start position
+                // this will take i to last start position, for loop increment will take it one position ahead of it
+                i = i - j;
+                j = 0;
+            }
+        }
 
-			if (checkCurrent(current, target)) {
-				if (needle.equals(haystack.substring(j - needle.length(), j)))
-					return j - needle.length();
-			}
-			
-			int a = current.get(haystack.charAt(j - needle.length()));
-			
-			current.put(haystack.charAt(j - needle.length()), a - 1);
-			current.put(haystack.charAt(j), current.get(haystack.charAt(j)) != null ? current.get(haystack.charAt(j)) + 1 : 1);
-		}
-		return -1;
-	}
-
-	private static boolean checkCurrent(HashMap<Character, Integer> current, HashMap<Character, Integer> target) {
-		for (Character c : target.keySet()) {
-			if (current.get(c) != target.get(c))
-				return false;
-		}
-		return true;
-	}
+        return -1;
+    }
 }

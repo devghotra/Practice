@@ -1,38 +1,44 @@
 package com.practice.bit;
 
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+
 public class DivideIntegers {
-	public static void main(String[] args) {
-		System.out.println(divide(11, 3));
-	}
 
-	public static int divide(int dividend, int divisor) {
-		// handle special cases
-		if (divisor == 0)
-			return Integer.MAX_VALUE;
-		if (divisor == -1 && dividend == Integer.MIN_VALUE)
-			return Integer.MAX_VALUE;
+    @Test
+    public void test() {
+        assertEquals(3, divide(11, 3));
+    }
 
-		// get positive values
-		long pDividend = Math.abs((long) dividend);
-		long pDivisor = Math.abs((long) divisor);
+    public static int divide(int dividend, int divisor) {
+        // handle special cases
+        if (divisor == 0)
+            return Integer.MAX_VALUE;
+        if (divisor == -1 && dividend == Integer.MIN_VALUE)
+            return Integer.MAX_VALUE;
 
-		int result = 0;
-		while (pDividend >= pDivisor) {
-			// calculate number of left shifts
-			int numShift = 0;
-			while (pDividend >= (pDivisor << numShift)) {
-				numShift++;
-			}
+        // get positive values
+        long pDividend = Math.abs((long) dividend);
+        long pDivisor = Math.abs((long) divisor);
 
-			// dividend minus the largest shifted divisor
-			result += 1 << (numShift - 1);
-			pDividend -= (pDivisor << (numShift - 1));
-		}
+        int result = 0;
+        while (pDividend >= pDivisor) {
+            // calculate number of left shifts
+            int numShift = 0;
+            while (pDividend >= (pDivisor << numShift)) {
+                numShift++;
+            }
 
-		if ((dividend > 0 && divisor > 0) || (dividend < 0 && divisor < 0)) {
-			return result;
-		} else {
-			return -result;
-		}
-	}
+            // dividend minus the largest shifted divisor
+            result += 1 << (numShift - 1);
+            pDividend -= (pDivisor << (numShift - 1));
+        }
+
+        if ((dividend > 0 && divisor > 0) || (dividend < 0 && divisor < 0)) {
+            return result;
+        } else {
+            return -result;
+        }
+    }
 }

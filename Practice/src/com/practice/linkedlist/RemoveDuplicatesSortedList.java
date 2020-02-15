@@ -2,31 +2,19 @@ package com.practice.linkedlist;
 
 public class RemoveDuplicatesSortedList {
 
-	public static void main(String[] args) {
-		
-		
-	}
-	
-	public ListNode deleteDuplicates(ListNode head) {
-		
-		ListNode lastNonDupNode = head;
-		ListNode prevNode = head;
+    public ListNode deleteDuplicates(ListNode head) {
+        ListNode current = head;
 
-		ListNode node = head.next;
+        while (current.next != null) {
+            if (current.val == current.next.val) {
+                current.next = current.next.next;
+            } else {
+                current = current.next;
+            }
+        }
 
-		while (node != null) {
-			if (node.val != prevNode.val) {
-				lastNonDupNode.next = node;
-				lastNonDupNode = node;
-			}
-			prevNode = node;
-			node = node.next;
-		}
+        return head;
+    }
 
-		lastNonDupNode.next = null;
-
-		return head;
-	
-	}
 
 }

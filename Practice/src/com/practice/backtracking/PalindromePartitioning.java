@@ -1,46 +1,45 @@
 package com.practice.backtracking;
 
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+
 public class PalindromePartitioning {
 
-	public static void main(String[] args) {
-		PalindromePartitioning pp = new PalindromePartitioning();
-		// Set<String> palindromes = new HashSet<>();
-		// pp.palindromes("missisippi", palindromes);
-		// System.out.println(palindromes);
+    @Test
+    public void test() {
+        assertEquals(1, 1);
+        System.out.println(partition("aabb"));
+    }
 
-		ArrayList<ArrayList<String>> partitions = pp.partition("aabb");
-		for (List<String> p : partitions) {
-			System.out.println(p);
-		}
-	}
+    public ArrayList<ArrayList<String>> partition(String s) {
+        ArrayList<ArrayList<String>> result = new ArrayList<>();
+        partition(result, new ArrayList<>(), s, 0);
+        return result;
+    }
 
-	public ArrayList<ArrayList<String>> partition(String s) {
-		ArrayList<ArrayList<String>> list = new ArrayList<>();
-		backtrack(list, new ArrayList<>(), s, 0);
-		return list;
-	}
+    public void partition(ArrayList<ArrayList<String>> result, List<String> tempList, String s, int start) {
+        if (start == s.length()) {
+            result.add(new ArrayList<>(tempList));
+            return;
+        }
 
-	public void backtrack(ArrayList<ArrayList<String>> list, List<String> tempList, String s, int start) {
-		if (start == s.length())
-			list.add(new ArrayList<>(tempList));
-		else {
-			for (int i = start; i < s.length(); i++) {
-				if (isPalindrome(s, start, i)) {
-					tempList.add(s.substring(start, i + 1));
-					backtrack(list, tempList, s, i + 1);
-					tempList.remove(tempList.size() - 1);
-				}
-			}
-		}
-	}
+        for (int i = start; i < s.length(); i++) {
+            if (isPalindrome(s, start, i)) {
+                tempList.add(s.substring(start, i + 1));
+                partition(result, tempList, s, i + 1);
+                tempList.remove(tempList.size() - 1);
+            }
+        }
+    }
 
-	public boolean isPalindrome(String s, int low, int high) {
-		while (low < high)
-			if (s.charAt(low++) != s.charAt(high--))
-				return false;
-		return true;
-	}
+    public boolean isPalindrome(String s, int low, int high) {
+        while (low < high)
+            if (s.charAt(low++) != s.charAt(high--))
+                return false;
+        return true;
+    }
 }

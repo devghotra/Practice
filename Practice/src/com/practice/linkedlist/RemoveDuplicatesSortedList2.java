@@ -22,20 +22,20 @@ public class RemoveDuplicatesSortedList2 {
 		ListNode lastNonDupNode = null;
 		ListNode prevNode = null;
 
-		ListNode node = head;
+		ListNode current = head;
 
-		while (node != null) {
-			if ((prevNode == null || node.val != prevNode.val) && (node.next == null || node.val != node.next.val)) {
+		while (current != null) {
+			if ((prevNode == null || current.val != prevNode.val) && (current.next == null || current.val != current.next.val)) {
 				if (newHead == null) {
-					newHead = node;
+					newHead = current;
 				} else {
-					lastNonDupNode.next = node;
+					lastNonDupNode.next = current;
 				}
 
-				lastNonDupNode = node;
+				lastNonDupNode = current;
 			}
-			prevNode = node;
-			node = node.next;
+			prevNode = current;
+			current = current.next;
 		}
 
 		if (newHead != null)

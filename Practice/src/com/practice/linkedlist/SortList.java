@@ -1,8 +1,11 @@
 package com.practice.linkedlist;
 
+import org.junit.Test;
+
 public class SortList {
 
-	public static void main(String[] args) {
+    @Test
+    public void test() {
 
 		ListNode n1 = new ListNode(1);
 		ListNode n2 = new ListNode(2); 
@@ -29,63 +32,64 @@ public class SortList {
 
 	}
 
-	public static ListNode sortList(ListNode head) {
-		
-		if(head == null)
-			return head;
-		
-		ListNode fast = head;
-		ListNode slow = head;
-		while(fast.next != null && fast.next.next != null){
-			slow = slow.next;
-			fast = fast.next.next;
-		}
-		
-		if(fast.next != null)
-			fast = fast.next;
-		
-		if(slow == fast)
-			return slow;
-		
-		ListNode temp = slow.next;
-		slow.next = null;
-		
-		ListNode l1 = sortList(head);
-		ListNode l2 = sortList(temp);
-		
-		return mergeTwoLists(l1, l2);
-	}
-	
-	public static ListNode mergeTwoLists(ListNode a, ListNode b) {
-		ListNode head = null;
-		
-		if(a.val <= b.val){
-			head = a;
-			a = a.next;
-		} else{
-			head = b;
-			b = b.next;
-		}
-		
-		ListNode node = head;
-		while(a != null && b != null){
-			if(a.val <= b.val){
-				node.next = a;
-				node = a;
-				a = a.next;
-			} else{
-				node.next = b;
-				node = b;
-				b = b.next;
-			}
-		}
-		
-		if (a == null)
-	        node.next = b;
-	    else
-	        node.next = a;
-		
-		return head;
-	}
+    public ListNode sortList(ListNode head) {
+
+        if (head == null)
+            return head;
+
+        ListNode fast = head;
+        ListNode slow = head;
+        while (fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        if (fast.next != null)
+            fast = fast.next;
+
+        if (slow == fast) {
+            return slow;
+        }
+
+        ListNode head2 = slow.next;
+        slow.next = null;
+
+        ListNode l1 = sortList(head);
+        ListNode l2 = sortList(head2);
+
+        return mergeTwoLists(l1, l2);
+    }
+
+    public ListNode mergeTwoLists(ListNode a, ListNode b) {
+        ListNode head;
+
+        if (a.val <= b.val) {
+            head = a;
+            a = a.next;
+        } else {
+            head = b;
+            b = b.next;
+        }
+
+        ListNode node = head;
+        while (a != null && b != null) {
+            if (a.val <= b.val) {
+                node.next = a;
+                node = a;
+                a = a.next;
+            } else {
+                node.next = b;
+                node = b;
+                b = b.next;
+            }
+        }
+
+        if (a == null)
+            node.next = b;
+        else
+            node.next = a;
+
+        return head;
+    }
 
 }

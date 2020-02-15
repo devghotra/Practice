@@ -1,50 +1,52 @@
 package com.practice.backtracking;
 
+import org.junit.Test;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 public class CombinationSum {
 
-	public static void main(String[] args) {
-		CombinationSum cs2 = new CombinationSum();
-		int[] candidates = { 2, 3, 6, 7 };
-		System.out.println(cs2.combinationSum(candidates, 7));
+    @Test
+    public void test() {
+        assertEquals(1, 1);
+        System.out.println(combinationSum(Arrays.asList(1, 6, 8, 8, 10, 11, 16), 28));
+    }
 
-	}
+    public ArrayList<ArrayList<Integer>> combinationSum(List<Integer> candidates, int target) {
+        Collections.sort(candidates);
+        ArrayList<ArrayList<Integer>> result = new ArrayList<>();
+        combinationSum(candidates, result, new ArrayList<>(), 0, 0, target);
+        return result;
+    }
 
-	public ArrayList<ArrayList<Integer>> combinationSum(int[] candidates, int target) {
-		ArrayList<Integer> candidateList = new ArrayList<>();
-		for (int num : candidates) {
-			candidateList.add(num);
-		}
-		return combinationSum(candidateList, target);
-	}
+    public void combinationSum(List<Integer> candidates, ArrayList<ArrayList<Integer>> result, ArrayList<Integer> tempList, int start, int currentSum, int target) {
+        if (currentSum > target) {
+            return;
+        }
 
-	public ArrayList<ArrayList<Integer>> combinationSum(ArrayList<Integer> candidates, int target) {
-		Collections.sort(candidates);
-		ArrayList<ArrayList<Integer>> result = new ArrayList<>();
-		backtrack(result, new ArrayList<>(), candidates, 0, target, 0);
-		return result;
-	}
+        if (currentSum == target) {
+            result.add(new ArrayList<>(tempList));
+            return;
+        }
 
-	public void backtrack(ArrayList<ArrayList<Integer>> result, ArrayList<Integer> list, ArrayList<Integer> candidates, int current, int target, int start) {
-		if (current == target) {
-			result.add(new ArrayList<>(list));
-			return;
-		}
+        for (int i = start; i < candidates.size(); i++) {
+            if (i > start && candidates.get(i) == candidates.get(i - 1)) {
+                continue;
+            }
 
-		for (int i = start; i < candidates.size(); i++) {
-			if (i > start && candidates.get(i) == candidates.get(i - 1))
-				continue;
-
-			if (current + candidates.get(i) <= target) {
-				current += candidates.get(i);
-				list.add(candidates.get(i));
-				backtrack(result, list, candidates, current, target, i);
-				current -= candidates.get(i);
-				list.remove(list.size() - 1);
-			}
-		}
-	}
+            if (currentSum + candidates.get(i) <= target) {
+                tempList.add(candidates.get(i));
+                combinationSum(candidates, result, tempList, i, currentSum + candidates.get(i), target);
+                tempList.remove(tempList.size() - 1);
+            } else {
+                break;
+            }
+        }
+    }
 
 }
