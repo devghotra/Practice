@@ -1,57 +1,44 @@
 package com.practice.hashing;
 
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
+import static org.junit.Assert.assertEquals;
 
 public class Anagrams {
 
-	public static void main(String[] args) {
-		Anagrams ang = new Anagrams();
-		ArrayList<String> input = new ArrayList<>();
-        input.add("cat");
-        input.add("dog");
-        input.add("god");
-        input.add("tca");
-        input.add("cas");
-        input.add("sac");
-        input.add("tca");
-		System.out.println(ang.anagrams(input));
+    @Test
+    public void test() {
+        assertEquals(1, 1);
+        System.out.println(anagrams(Arrays.asList("cat", "dog", "god", "tca", "cas", "sac", "tca")));
+    }
 
-	}
+    public ArrayList<ArrayList<Integer>> anagrams(List<String> input) {
 
-	public ArrayList<ArrayList<Integer>> anagrams(List<String> input) {
-		ArrayList<ArrayList<Integer>> resultList = new ArrayList<>();
+        Map<String, ArrayList<Integer>> map = new HashMap<>();
+        for (int i = 1; i <= input.size(); i++) {
+            char[] chars = input.get(i - 1).toCharArray();
+            Arrays.sort(chars);
+            String sortedWord = new String(chars);
 
-		Map<String, ArrayList<Integer>> map = new LinkedHashMap<>();
-		for (int i = 1; i <= input.size(); i++) {
-			String word = input.get(i-1);
-			char[] chars = word.toCharArray();
-			Arrays.sort(chars);
-			StringBuilder sb = new StringBuilder();
-			for (char c : chars) {
-				sb.append(c);
-			}
+            if (map.containsKey(sortedWord)) {
+                ArrayList<Integer> l = map.get(sortedWord);
+                l.add(i);
+                map.put(sortedWord, l);
+            } else {
+                ArrayList<Integer> l = new ArrayList<>();
+                l.add(i);
+                map.put(sortedWord, l);
+            }
+        }
 
-			String sortedWord = sb.toString();
-			if (map.containsKey(sortedWord)) {
-				ArrayList<Integer> l = map.get(sortedWord);
-				l.add(i);
-				map.put(sortedWord, l);
-			} else {
-				ArrayList<Integer> l = new ArrayList<>();
-				l.add(i);
-				map.put(sortedWord, l);
-			}
-		}
-		
-		for(String s : map.keySet()){
-			resultList.add(map.get(s));
-		}
-
-		return resultList;
-	}
+        return (ArrayList) map.values().stream().collect(Collectors.toList());
+    }
 
 }

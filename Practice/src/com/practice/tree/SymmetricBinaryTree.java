@@ -1,35 +1,23 @@
 package com.practice.tree;
 
+import com.practice.tree.util.TreeNode;
+
 public class SymmetricBinaryTree {
 
-	public static void main(String[] args) {
-		
-	}
-	
-	public boolean isSymmetric(TreeNode root) {
-		if (root == null)
-			return true;
+    public int isSymmetric(TreeNode root) {
+        return isSymmetric(root.left, root.right);
+    }
 
-		return isSymmetric(root.left, root.right);
-	}
+    private int isSymmetric(TreeNode t1, TreeNode t2) {
+        if (t1 == null && t2 == null) {
+            return 1;
+        }
 
-	public boolean isSymmetric(TreeNode a, TreeNode b) {
+        if (t1 == null || t2 == null || t1.val != t2.val) {
+            return 0;
+        }
 
-		if (a == null && b == null)
-			return true;
-
-		if (a == null || b == null || a.val != b.val)
-			return false;
-
-		return isSymmetric(a.left, b.right) && isSymmetric(a.right, b.left);
-
-	}
-	
-	public int isSymmetricIB(TreeNode root) {
-		if (root == null)
-			return 1;
-
-		return isSymmetric(root.left, root.right) ? 1 : 0;
-	}
+        return isSymmetric(t1.left, t2.right) & isSymmetric(t1.right, t2.left);
+    }
 
 }

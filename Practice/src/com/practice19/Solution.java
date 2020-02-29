@@ -9,30 +9,10 @@ public class Solution {
     @Test
     public void test() {
         assertEquals(1, 1);
+        //System.out.println(TreeBuilder.toTree(new int[]{9, 5, 12, 2, 7, 10, 15}));
+        //System.out.println(order(Arrays.asList(5, 3, 2, 6, 1, 4), Arrays.asList(0, 1, 2, 0, 3, 2)));
     }
 
-    public void solveSudoku(char[][] board) {
-        solveSudoku(board, 0);
-    }
-
-    public boolean solveSudoku(char[][] board, int row) {
-
-        int[] rowNums = new int[10];
-        for (int j = 0; j < board.length; j++) {
-            if (board[row][j] != '.') {
-                rowNums[board[row][j]] = 1;
-            }
-        }
-
-        for (int j = 0; j < board.length; j++) {
-            if (board[row][j] != '.') {
-                for (int k = 1; k < 10; k++) {
-
-                }
-            }
-        }
-
-        return false;
-    }
 
 }
+

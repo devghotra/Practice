@@ -1,43 +1,43 @@
 package com.practice.hashing;
 
+import org.junit.Test;
+
 import java.util.HashSet;
 import java.util.Set;
 
+import static org.junit.Assert.assertEquals;
+
 public class ColorfulNumber {
 
-	public static void main(String[] args) {
-		ColorfulNumber cn = new ColorfulNumber();
-		System.out.println(cn.colorful(23));
+    @Test
+    public void test() {
+        assertEquals(1, colorful(3245));
+        assertEquals(0, colorful(1212));
+    }
 
-	}
+    public int colorful(int num) {
+        Set<Integer> productSet = new HashSet<>();
 
-	public int colorful(int num) {
-		String numStr = "" + num;
-		char[] digitsArr = numStr.toCharArray();
+        char[] nums = String.valueOf(num).toCharArray();
+        for (int i = 0; i < nums.length; i++) {
+            int n = nums[i] - '0';
+            if (productSet.contains(n)) {
+                return 0;
+            } else {
+                productSet.add(n);
+            }
 
-		Set<Integer> productSet = new HashSet<>();
+            for (int j = i + 1; j < nums.length; j++) {
+                n *= nums[j] - '0';
+                if (productSet.contains(n)) {
+                    return 0;
+                } else {
+                    productSet.add(n);
+                }
+            }
+        }
 
-		for (int i = 0; i < digitsArr.length; i++) {
-			int digit1 = digitsArr[i] - '0';
-			int product = digit1;
-
-			if (productSet.contains(product))
-				return 0;
-
-			productSet.add(digit1);
-
-			for (int j = i + 1; j < digitsArr.length; j++) {
-				int digit2 = digitsArr[j] - '0';
-				product = digit2 * product;
-
-				if (productSet.contains(product))
-					return 0;
-				else
-					productSet.add(product);
-			}
-		}
-
-		return 1;
-	}
+        return 1;
+    }
 
 }

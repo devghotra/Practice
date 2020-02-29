@@ -9,114 +9,118 @@ import java.util.List;
 // check OrderofPeopleHeightsRepeat
 public class OrderofPeopleHeights {
 
-	HeightTreeNode treeRoot = null;
+    HeightTreeNode treeRoot = null;
 
-	Comparator<Person> heightComparator = (p1, p2) -> p2.height.compareTo(p1.height);
+    Comparator<Person> heightComparator = (p1, p2) -> p2.height.compareTo(p1.height);
 
-	public static void main(String[] args) {
-		OrderofPeopleHeights inst = new OrderofPeopleHeights();
-		Integer[] heights = { 6, 5, 4, 3, 2, 1 };
-		Integer[] inFronts = { 0, 0, 2, 1, 2, 3 };
+    public static void main(String[] args) {
+        OrderofPeopleHeights inst = new OrderofPeopleHeights();
+        Integer[] heights = {6, 5, 4, 3, 2, 1};
+        Integer[] inFronts = {0, 0, 2, 1, 2, 3};
 
-		System.out.println(inst.order(Arrays.asList(heights), Arrays.asList(inFronts)));
+        System.out.println(inst.order(Arrays.asList(heights), Arrays.asList(inFronts)));
 
-	}
+    }
 
-	public ArrayList<Integer> order(List<Integer> heights, List<Integer> infronts) {
-		ArrayList<Person> persons = new ArrayList<>();
-		for (int i = 0; i < heights.size(); i++) {
-			persons.add(new Person(heights.get(i), infronts.get(i)));
-		}
+    public ArrayList<Integer> order(List<Integer> heights, List<Integer> infronts) {
+        ArrayList<Person> persons = new ArrayList<>();
+        for (int i = 0; i < heights.size(); i++) {
+            persons.add(new Person(heights.get(i), infronts.get(i)));
+        }
 
-		Collections.sort(persons, heightComparator);
+        Collections.sort(persons, heightComparator);
 
-		for (Person p : persons) {
-			insert(new HeightTreeNode(p, 1));
-		}
+        for (Person p : persons) {
+            insert(new HeightTreeNode(p, 1));
+        }
 
-		ArrayList<Integer> order = new ArrayList<>();
-		inOrder(treeRoot, order);
-		return order;
-	}
+        ArrayList<Integer> order = new ArrayList<>();
+        inOrder(treeRoot, order);
+        return order;
+    }
 
-	private void inOrder(HeightTreeNode node, List<Integer> order){
-		if(node == null){
-			return;
-		}
-		
-		inOrder(node.left, order);
-		order.add(node.p.height);
-		inOrder(node.right, order);
-		
-	}
-	
-	private void insert(HeightTreeNode node) {
-		if (treeRoot == null) {
-			treeRoot = node;
-			return;
-		}
+    private void inOrder(HeightTreeNode node, List<Integer> order) {
+        if (node == null) {
+            return;
+        }
 
-		HeightTreeNode checkNode = treeRoot;
-		int inFront = node.p.inFront;
-		while (checkNode != null) {
-			if (inFront < checkNode.pos) {
-				if (checkNode.left == null) {
-					checkNode.left = node;
-					checkNode.updatePosition();
-					return;
-				} else {
-					checkNode.updatePosition();
-					checkNode = checkNode.left;
-				}
-			} else {
-				if (checkNode.right == null) {
-					checkNode.right = node;
-					return;
-				} else {
-					inFront -= checkNode.pos;
-					checkNode = checkNode.right;
-				}
-			}
-		}
-	}
+        inOrder(node.left, order);
+        order.add(node.p.height);
+        inOrder(node.right, order);
 
-}
+    }
 
-class Person {
-	Integer height;
-	Integer inFront;
+    /** if order of heights is already in ascending or descending position then this soln does not have O(logN) insertion
+        better solution is IB complete soln which creates a balance segment tree
+        so root will be 6 means and each subtrees will be 3 each (number represents number of persons under that tree)
+     */
+    private void insert(HeightTreeNode node) {
+        if (treeRoot == null) {
+            treeRoot = node;
+            return;
+        }
 
-	public Person(int h, int f) {
-		height = h;
-		inFront = f;
-	}
+        HeightTreeNode checkNode = treeRoot;
+        int inFront = node.p.inFront;
+        while (checkNode != null) {
+            if (inFront < checkNode.pos) {
+                if (checkNode.left == null) {
+                    checkNode.left = node;
+                    checkNode.updatePosition();
+                    return;
+                } else {
+                    checkNode.updatePosition();
+                    checkNode = checkNode.left;
+                }
+            } else {
+                if (checkNode.right == null) {
+                    checkNode.right = node;
+                    return;
+                } else {
+                    inFront -= checkNode.pos;
+                    checkNode = checkNode.right;
+                }
+            }
+        }
+    }
 
-	@Override
-	public String toString() {
-		return "Person [height=" + height + ", inFront=" + inFront + "]";
-	}
 
-}
+    class Person {
+        Integer height;
+        Integer inFront;
 
-class HeightTreeNode {
+        public Person(int h, int f) {
+            height = h;
+            inFront = f;
+        }
 
-	Person p;
-	int pos;
-	HeightTreeNode left;
-	HeightTreeNode right;
+        @Override
+        public String toString() {
+            return "Person [height=" + height + ", inFront=" + inFront + "]";
+        }
 
-	public HeightTreeNode(Person p, int pos) {
-		this.p = p;
-		this.pos = pos;
-	}
+    }
 
-	public void updatePosition() {
-		pos++;
-	}
+    class HeightTreeNode {
 
-	@Override
-	public String toString() {
-		return "HeightTreeNode [p=" + p + ", pos=" + pos + ", left=" + left + ", right=" + right + "]";
-	}
+        Person p;
+        int pos;
+        HeightTreeNode left;
+        HeightTreeNode right;
 
+        public HeightTreeNode(Person p, int pos) {
+            this.p = p;
+            this.pos = pos;
+        }
+
+        public void updatePosition() {
+            pos++;
+        }
+
+        @Override
+        public String toString() {
+            return "HeightTreeNode [p=" + p + ", pos=" + pos + ", left=" + left + ", right=" + right + "]";
+        }
+
+    }
 }

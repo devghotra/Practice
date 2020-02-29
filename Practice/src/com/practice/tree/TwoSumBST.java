@@ -1,61 +1,106 @@
 package com.practice.tree;
 
+import com.practice.tree.util.TreeBuilder;
+import com.practice.tree.util.TreeNode;
+import org.junit.Test;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
 
+import static org.junit.Assert.assertEquals;
+
 public class TwoSumBST {
 
-	public static void main(String[] args) {
-		TwoSumBST inst = new TwoSumBST();
-		TreeNode root = new TreeNode(5);
-		TreeNode three = new TreeNode(3);
-		TreeNode eight = new TreeNode(8);
-		TreeNode two = new TreeNode(2);
-		TreeNode four = new TreeNode(4);
-		TreeNode seven = new TreeNode(7);
-		TreeNode nine = new TreeNode(9);
+    @Test
+    public void test() {
+        assertEquals(1, 1);
+        assertEquals(1, t2Sum(TreeBuilder.toTree(new int[]{9, 5, 12, 2, 7, 11, 15}), 18));
+    }
 
-		root.left = three;
-		root.right = eight;
+    /**
+     * 2 Pointer approach
+     * Space complexity: O(height of tree)
+     */
+    public int t2Sum(TreeNode root, int k) {
+        Stack<TreeNode> minStack = new Stack();
+        Stack<TreeNode> maxStack = new Stack();
 
-		three.left = two;
-		three.right = four;
+        TreeNode n = root;
+        while (n != null) {
+            minStack.push(n);
+            n = n.left;
+        }
 
-		eight.left = seven;
-		eight.right = nine;
+        n = root;
+        while (n != null) {
+            maxStack.push(n);
+            n = n.right;
+        }
 
-		System.out.println(inst.t2Sum(root, 18));
+        while (minStack.peek().val < maxStack.peek().val) {
+            int sum = minStack.peek().val + maxStack.peek().val;
+            if (sum == k) {
+                return 1;
+            }
 
-	}
+            if (sum > k) {
+                TreeNode maxNode = maxStack.pop();
+                // left edge of max nodes is unvisited, so add a left SegmentNode & its right edge
+                if (maxNode.left != null) {
+                    TreeNode node = maxNode.left;
+                    while (node != null) {
+                        maxStack.push(node);
+                        node = node.right;
+                    }
+                }
+            } else {
+                TreeNode minNode = minStack.pop();
+                // right edge of min nodes is unvisited, so add a right SegmentNode & its left edge
+                if (minNode.right != null) {
+                    TreeNode node = minNode.right;
+                    while (node != null) {
+                        minStack.push(node);
+                        node = node.left;
+                    }
+                }
+            }
+        }
 
-	public int t2Sum(TreeNode root, int k) {
-		Set<Integer> set = new HashSet<>();
-		return inorderAndCheck(root, set, k) ? 1 : 0;
-	}
+        return 0;
+    }
 
-	private boolean inorderAndCheck(TreeNode root, Set<Integer> set, int k) {
-		Stack<TreeNode> stack = new Stack<>();
-		TreeNode p = root;
+    /**
+     * Performs inorder traversal and uses a set to keep track of visited nodes
+     * Space complexity: O(n)
+     */
+    public int t2Sum_ONSpaceComplexity(TreeNode root, int k) {
+        Set<Integer> set = new HashSet<>();
+        return inorderAndCheck(root, set, k) ? 1 : 0;
+    }
 
-		while (!stack.empty() || p != null) {
+    private boolean inorderAndCheck(TreeNode root, Set<Integer> set, int k) {
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode p = root;
 
-			// if it is not null, push to stack and go down the tree to left
-			if (p != null) {
-				stack.push(p);
-				p = p.left;
-				continue;
-			}
+        while (!stack.empty() || p != null) {
 
-			// if no left child pop stack, process the node then let p point to the right
-			TreeNode t = stack.pop();
-			if (set.contains(k - t.val)) {
-				return true;
-			}
-			set.add(t.val);
-			p = t.right;
-		}
-		return false;
-	}
+            // if it is not null, push to stack and go down the tree to left
+            if (p != null) {
+                stack.push(p);
+                p = p.left;
+                continue;
+            }
+
+            // if no left child pop stack, process the SegmentNode then let p point to the right
+            TreeNode t = stack.pop();
+            if (set.contains(k - t.val)) {
+                return true;
+            }
+            set.add(t.val);
+            p = t.right;
+        }
+        return false;
+    }
 
 }

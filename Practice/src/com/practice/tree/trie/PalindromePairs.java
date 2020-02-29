@@ -43,6 +43,7 @@ public class PalindromePairs {
 		for (int j = 0; j < word.length(); j++) {
 			char c = word.charAt(j);
 
+			// if the word being matched ended then check if rest of this word is palindrome
 			if (current.isEnd && current.index != i && isPalindrome(word, j, word.length() - 1)) {
 				result.add(Arrays.asList(i, current.index));
 			}
@@ -94,25 +95,24 @@ public class PalindromePairs {
 		return true;
 	}
 
-}
+    class TrieNode {
 
-class TrieNode {
+        char val;
+        Set<Integer> palindroneIndexesSet = new HashSet<>();
+        Map<Character, TrieNode> children = new HashMap<>();
+        int index = -1; // will be set with word's index on the TrieNode representing last char of the word
+        boolean isEnd;
 
-	char val;
-	Set<Integer> palindroneIndexesSet = new HashSet<>();
-	Map<Character, TrieNode> children = new HashMap<>();
-	int index = -1;
-	boolean isEnd;
+        public TrieNode(char c) {
+            this.val = c;
+        }
 
-	public TrieNode(char c) {
-		this.val = c;
-	}
+        public String toString1() {
+            return "[val=" + val + ", idxPlnBlw=" + palindroneIndexesSet + ", children=" + children + ", isEndIndex=" + index + "]";
+        }
 
-	public String toString1() {
-		return "[val=" + val + ", idxPlnBlw=" + palindroneIndexesSet + ", children=" + children + ", isEndIndex=" + index + "]";
-	}
-
-	public String toString() {
-		return "[" + val + "]";
-	}
+        public String toString() {
+            return "[" + val + "]";
+        }
+    }
 }

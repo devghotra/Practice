@@ -1,6 +1,6 @@
 package com.practice.arrays;
 
-public class GivenSumContiguousSubArray {
+public class GivenSumContiguousSubArray_FB {
 	// Facebook problem
 
 	public static void main(String[] args) {

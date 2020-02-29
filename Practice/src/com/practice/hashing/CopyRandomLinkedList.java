@@ -4,58 +4,52 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CopyRandomLinkedList {
+    class RandomListNode {
+        int label;
+        RandomListNode next, random;
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+        RandomListNode(int x) {
+            this.label = x;
+        }
+    }
 
-	}
-	
-	public RandomListNode copyRandomList(RandomListNode head) {
+    public RandomListNode copyRandomList(RandomListNode head) {
+        Map<RandomListNode, RandomListNode> map = new HashMap<>();
 
-		Map<RandomListNode, RandomListNode> map = new HashMap<>();
-		RandomListNode originalNode = head;
-		RandomListNode previousCopyNode = null;
-		RandomListNode copyHead = null;
-		
-		while (originalNode != null) {
-			RandomListNode copyNode = null;
-			if(map.containsKey(originalNode)){
-				copyNode = map.get(originalNode);
-			} else{
-				copyNode = new RandomListNode(originalNode.label);
-				map.put(originalNode, copyNode);
-			}
+        RandomListNode copyHead = null;
 
-			if (previousCopyNode != null) {
-				previousCopyNode.next = copyNode;
-			} else{
-				copyHead = copyNode;
-			}
-			
-			if(originalNode.random != null){
-				if(map.containsKey(originalNode.random)){
-					copyNode.random = map.get(originalNode.random);
-				} else{
-					RandomListNode copyRandomNode = new RandomListNode(originalNode.random.label);
-					map.put(originalNode.random, copyRandomNode);
-					copyNode.random = copyRandomNode;
-				}
-			}
+        RandomListNode current = head;
+        while (current != null) {
 
-			previousCopyNode = copyNode;
-			originalNode = originalNode.next;
-		}
+            RandomListNode copyNode = map.get(current);
+            if (copyNode == null) {
+                copyNode = new RandomListNode(current.label);
+                map.put(current, copyNode);
+            }
 
-		return copyHead;
-	}
+            if (current.next != null) {
+                if (!map.containsKey(current.next)) {
+                    RandomListNode copyNext = new RandomListNode(current.next.label);
+                    map.put(current.next, copyNext);
+                }
+                copyNode.next = map.get(current.next);
+            }
 
-}
+            if (current.random != null) {
+                if (!map.containsKey(current.random)) {
+                    RandomListNode copyRandom = new RandomListNode(current.random.label);
+                    map.put(current.random, copyRandom);
+                }
+                copyNode.random = map.get(current.random);
+            }
+            current = current.next;
 
-class RandomListNode {
-	int label;
-	RandomListNode next, random;
+            if (copyHead == null) {
+                copyHead = copyNode;
+            }
+        }
 
-	RandomListNode(int x) {
-		this.label = x;
-	}
+        return copyHead;
+    }
+
 }

@@ -5,51 +5,51 @@ import java.util.Map;
 
 public class Fraction {
 
-	public static void main(String[] args) {
-		Fraction fraction = new Fraction();
-		System.out.println(fraction.fractionToDecimal(0, -5));
-	}
+    public static void main(String[] args) {
+        Fraction fraction = new Fraction();
+        System.out.println(fraction.fractionToDecimal(0, -5));
+    }
 
-	public String fractionToDecimal(int n, int d) {
-		
-		if (n == 0) return "0";
-		if (d == 0) return "";
+    public String fractionToDecimal(int n, int d) {
 
-		long numerator = n;
-		long denominator = d;
+        if (n == 0) return "0";
+        if (d == 0) return "";
 
-		StringBuilder result = new StringBuilder();
+        long numerator = n;
+        long denominator = d;
 
-		// XOR - returns true if both operands are different else returns false
-		if ((numerator < 0) ^ (denominator < 0)) {
-			result.insert(0, "-");
-		}
+        StringBuilder result = new StringBuilder();
 
-		Map<Long, Integer> remainderMap = new HashMap<>();
-		long remainder = Math.abs(numerator);
-		denominator = Math.abs(denominator);
+        // XOR - returns true if both operands are different else returns false
+        if ((numerator < 0) ^ (denominator < 0)) {
+            result.insert(0, "-");
+        }
 
-		long quotient = remainder / denominator;
-		remainder = (remainder % denominator)*10;
+        Map<Long, Integer> remainderMap = new HashMap<>();
+        long remainder = Math.abs(numerator);
+        denominator = Math.abs(denominator);
 
-		result.append(quotient);
+        long quotient = remainder / denominator;
+        remainder = (remainder % denominator) * 10;
 
-		if (remainder == 0)
-			return result.toString();
+        result.append(quotient);
 
-		result.append(".");
-		while (remainder != 0) {
-			if (remainderMap.containsKey(remainder)) {
-				int index = remainderMap.get(remainder);
-				return result.substring(0, index) + "(" + result.substring(index) + ")";
-			}
+        if (remainder == 0)
+            return result.toString();
 
-			remainderMap.put(remainder, result.length());
-			quotient = remainder / denominator;
-			remainder = (remainder % denominator) * 10;
-			result.append(quotient);
-		}
+        result.append(".");
+        while (remainder != 0) {
+            if (remainderMap.containsKey(remainder)) {
+                int index = remainderMap.get(remainder);
+                return result.substring(0, index) + "(" + result.substring(index) + ")";
+            }
 
-		return result.toString();
-	}
+            remainderMap.put(remainder, result.length());
+            quotient = remainder / denominator;
+            remainder = (remainder % denominator) * 10;
+            result.append(quotient);
+        }
+
+        return result.toString();
+    }
 }

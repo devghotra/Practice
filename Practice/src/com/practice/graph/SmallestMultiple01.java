@@ -54,11 +54,11 @@ public class SmallestMultiple01 {
 	           queue.add(new Node(true, 1 % num, null));
 	           isVisited[1 % num] = true;
 
-	           // The final destination node which represents the answer
+	           // The final destination SegmentNode which represents the answer
 	           Node destNode = null;
 
 	           while (!queue.isEmpty()) {
-	               // Get the next node from the queue
+	               // Get the next SegmentNode from the queue
 	               Node currNode = queue.remove();
 
 	               if (currNode.val == 0) {
@@ -109,7 +109,7 @@ public class SmallestMultiple01 {
 	       public final boolean isDigitOne;
 	       // The number represented in the tree modulo the input number
 	       public final int val;
-	       // The parent node in the tree
+	       // The parent SegmentNode in the tree
 	       public final Node parent;
 
 	       public Node(boolean isDigitOne, int val, Node parent) {

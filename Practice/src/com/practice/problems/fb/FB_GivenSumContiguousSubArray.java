@@ -1,4 +1,4 @@
-package com.practice.problems;
+package com.practice.problems.fb;
 
 public class FB_GivenSumContiguousSubArray {
 	// Facebook problem

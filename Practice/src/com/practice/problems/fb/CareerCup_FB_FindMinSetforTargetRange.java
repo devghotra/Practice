@@ -1,4 +1,4 @@
-package com.practice.problems;
+package com.practice.problems.fb;
 
 import java.util.Arrays;
 import java.util.HashSet;

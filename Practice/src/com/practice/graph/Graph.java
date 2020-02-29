@@ -45,7 +45,7 @@ public class Graph {
 		return null;
 	}
 	
-	// Utility methods for clearing visited property of node
+	// Utility methods for clearing visited property of SegmentNode
 	public void clearNodes() {
 		int i = 0;
 		while (i < size) {
@@ -55,7 +55,7 @@ public class Graph {
 		}
 	}
 
-	// Utility methods for printing the node's label
+	// Utility methods for printing the SegmentNode's label
 	public void printNode(Node n) {
 		System.out.print(n.label + " ");
 	}

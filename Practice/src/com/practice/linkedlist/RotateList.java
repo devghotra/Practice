@@ -24,7 +24,7 @@ public class RotateList {
         if (head == null)
             return null;
 
-        int size = 1; // since we are already at head node
+        int size = 1; // since we are already at head SegmentNode
         ListNode fast = head;
         ListNode slow = head;
 

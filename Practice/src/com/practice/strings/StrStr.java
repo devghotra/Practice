@@ -14,6 +14,10 @@ public class StrStr {
         assertEquals(0, strStr("ississippi", "ississippi"));
     }
 
+    /**
+     * Below is O(n2) approach,
+     * this can be solved by using KMP & Robin Carp Algos with better time complexity
+     */
     public int strStr(String haystack, String needle) {
 
         if (needle.isEmpty())

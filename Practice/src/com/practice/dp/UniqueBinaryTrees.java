@@ -32,13 +32,13 @@ public class UniqueBinaryTrees {
 			for (int j = 0; j < previousTreeList.size(); j++) {
 				TreeNode previousTree = previousTreeList.get(j);
 
-				// add new node at the top (root)
+				// add new SegmentNode at the top (root)
 				TreeNode c1 = clone(previousTree);
 				TreeNode t1 = new TreeNode(i);
 				t1.left = c1;
 				currentTreeList.add(t1);
 
-				// add new node at rightmost bottom
+				// add new SegmentNode at rightmost bottom
 				TreeNode c2 = clone(previousTree);
 				TreeNode t2 = new TreeNode(i);
 				TreeNode c22 = c2;
@@ -48,7 +48,7 @@ public class UniqueBinaryTrees {
 				c22.right = t2;
 				currentTreeList.add(c2);
 
-				// insert new node at each right edge
+				// insert new SegmentNode at each right edge
 				int level = 0;
 				TreeNode treeItr = previousTree;
 				while (treeItr.right != null) {

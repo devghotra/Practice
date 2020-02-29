@@ -1,31 +1,33 @@
 package com.practice.tree;
 
+import com.practice.tree.util.TreeNode;
+
 public class IdenticalTrees {
 
-	public static void main(String[] args) {
-		
-	}
+    public static void main(String[] args) {
 
-	public boolean isSameTree(TreeNode p, TreeNode q) {
+    }
 
-		if (p == null && q == null)
-			return true;
+    public boolean isSameTree(TreeNode p, TreeNode q) {
 
-		if (p == null || q == null || p.val != q.val)
-			return false;
+        if (p == null && q == null)
+            return true;
 
-		return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
-	}
+        if (p == null || q == null || p.val != q.val)
+            return false;
 
-	public int isSameTreeIB(TreeNode a, TreeNode b) {
+        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+    }
 
-		if (a == null && b == null)
-			return 1;
+    public int isSameTreeIB(TreeNode a, TreeNode b) {
 
-		if (a == null || b == null || a.val != b.val)
-			return 0;
+        if (a == null && b == null)
+            return 1;
 
-		return isSameTreeIB(a.left, b.left) & isSameTreeIB(a.right, b.right);
-	}
+        if (a == null || b == null || a.val != b.val)
+            return 0;
+
+        return isSameTreeIB(a.left, b.left) & isSameTreeIB(a.right, b.right);
+    }
 
 }

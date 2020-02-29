@@ -58,7 +58,9 @@ public class SudokuSolver_LC {
             if (board[row][i] != '.' && board[row][i] == n)
                 return false; // check column
 
-            if (board[3 * (row / 3) + i / 3][3 * (col / 3) + i % 3] == n)
+            int bRow = 3 * (row / 3) + i / 3;
+            int bCol = 3 * (col / 3) + i % 3;
+            if (board[bRow][bCol] == n)
                 return false; // check 3*3 block
         }
         return true;

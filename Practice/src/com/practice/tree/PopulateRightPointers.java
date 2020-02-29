@@ -1,79 +1,93 @@
 package com.practice.tree;
 
+import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+
 public class PopulateRightPointers {
 
-	public static void main(String[] args) {
-		TreeLinkNode one = new TreeLinkNode(1);
-		TreeLinkNode two = new TreeLinkNode(2);
-		TreeLinkNode three = new TreeLinkNode(3);
-		TreeLinkNode four = new TreeLinkNode(4);
-		TreeLinkNode five = new TreeLinkNode(5);
-		TreeLinkNode six = new TreeLinkNode(6);
-		TreeLinkNode seven = new TreeLinkNode(7);
-		TreeLinkNode eight = new TreeLinkNode(8);
+    @Test
+    public void test() {
+        assertEquals(1, 1);
+        connect(TreeLinkNode.createTree(new int[]{9, 5, 12, 2, 7, 10, 15}));
+    }
 
-		one.left = two;
-		one.right = three;
-		two.left = four;
-		two.right = five;
-		three.right = six;
-		four.left = seven;
-		six.right = eight;
+    public void connect(TreeLinkNode root) {
+        connect(root, null);
+    }
 
-		PopulateRightPointers inst = new PopulateRightPointers();
-		inst.connect(one);
-		System.out.println(one);
+    public void connect(TreeLinkNode node, TreeLinkNode nextRightParent) {
+        if (node == null)
+            return;
 
-	}
+        if (node.left != null) {
+            node.left.next = node.right;
+        }
 
-	public void connect(TreeLinkNode root) {
-		connect(root, null);
-	}
+        if (node.next == null) {
+            TreeLinkNode nextNode = getNextNode(nextRightParent);
+            node.next = nextNode;
+        }
 
-	public void connect(TreeLinkNode node, TreeLinkNode nextRightParent) {
-		if (node == null)
-			return;
-		
-		if(node.left != null){
-			node.left.next = node.right;
-		}
+        connect(node.right, node.next);
+        connect(node.left, node.next);
 
-		if (node.next == null) {
-			TreeLinkNode nextNode = getNextNode(nextRightParent);
-			node.next = nextNode;
-		}
+    }
 
-		connect(node.right, node.next);
-		connect(node.left, node.next);
-		
-	}
+    private TreeLinkNode getNextNode(TreeLinkNode node) {
+        while (node != null) {
+            if (node.left != null)
+                return node.left;
 
-	private TreeLinkNode getNextNode(TreeLinkNode node) {
-		while (node != null) {
-			if (node.left != null)
-				return node.left;
+            if (node.right != null)
+                return node.right;
 
-			if (node.right != null)
-				return node.right;
+            node = node.next;
+        }
 
-			node = node.next;
-		}
+        return null;
+    }
 
-		return null;
-	}
+    static class TreeLinkNode {
+        int val;
+        TreeLinkNode left, right, next;
 
-}
+        TreeLinkNode(int x) {
+            val = x;
+        }
 
-class TreeLinkNode {
-	int val;
-	TreeLinkNode left, right, next;
+        @Override
+        public String toString() {
+            return "[" + val + "]";
+        }
 
-	TreeLinkNode(int x) {
-		val = x;
-	}
+        public static TreeLinkNode createTree(int[] A) {
 
-	@Override
-	public String toString() {
-		return "[" + val + "]";
-	}
+            List<TreeLinkNode> nodes = new ArrayList<>();
+            nodes.add(new TreeLinkNode(A[0]));
+
+            for (int i = 1; i < A.length; i++) {
+                if (A[i] == -1) {
+                    continue;
+                }
+
+                TreeLinkNode node = new TreeLinkNode(A[i]);
+                nodes.add(node);
+
+                if (i % 2 == 0) {
+                    TreeLinkNode parent = nodes.get(i / 2 - 1);
+                    parent.right = node;
+                } else {
+                    TreeLinkNode parent = nodes.get(i / 2);
+                    parent.left = node;
+                }
+
+            }
+
+            return nodes.get(0);
+        }
+    }
 }

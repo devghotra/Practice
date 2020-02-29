@@ -1,116 +1,92 @@
 package com.practice.tree;
 
+import com.practice.tree.util.TreeBuilder;
+import com.practice.tree.util.TreeNode;
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
+
+import static org.junit.Assert.assertEquals;
 
 public class ZigzagTraversal {
 
-	public static void main(String[] args) {
-		TreeNode root = new TreeNode(0);
-        TreeNode two = new TreeNode(2);
-        TreeNode four = new TreeNode(4);
-        TreeNode one = new TreeNode(1);
-        TreeNode three = new TreeNode(3);
-        TreeNode minusOne = new TreeNode(-1);
-        TreeNode five = new TreeNode(5);
-        TreeNode one2 = new TreeNode(1);
-        TreeNode six = new TreeNode(6);
-        TreeNode eight = new TreeNode(8);
-        
-        root.left = two;
-        root.right = four;
-        
-        two.left = one;
-        
-        four.left = three;
-        four.right = minusOne;
-        
-        one.left = five;
-        one.right = one2;
-        
-        three.right = six;
-        minusOne.right = eight;
-		
-		ZigzagTraversal o = new ZigzagTraversal();
-		ArrayList<ArrayList<Integer>> result = o.zigzagLevelOrderRec(root);
-		System.out.println(result);
-		
+    @Test
+    public void test() {
+        assertEquals(1, 1);
+        System.out.println(zigzagLevelOrderRec(TreeBuilder.toTree(new int[]{9, 5, 12, 2, 7, 10, 15, 1, 3, 7, 8, 11, 13, 14, 16})));
+    }
 
-	}
+    public ArrayList<ArrayList<Integer>> zigzagLevelOrderRec(TreeNode root) {
+        TreeMap<Integer, ArrayList<Integer>> map = new TreeMap<>();
+        zigzagLevelOrder(root, map, 0);
+        return (ArrayList<ArrayList<Integer>>) map.values().stream().collect(Collectors.toList());
+    }
 
-	/*
-	 * Just do level traversal (left -> right), 
-	 * while adding to result check the level
-	 * For odd levels - Add as is
-	 * For even levels - Reverse the order by inserting at beginning 
-	 */
-	public ArrayList<ArrayList<Integer>> zigzagLevelOrder(TreeNode root) {
-		ArrayList<ArrayList<Integer>> result = new ArrayList<>();
-		int level = 1;
-		
-		if(root == null)
-			return result;
+    public void zigzagLevelOrder(TreeNode root, TreeMap<Integer, ArrayList<Integer>> map, int level) {
+        if (root == null) {
+            return;
+        }
 
-		Queue<TreeNode> queue = new LinkedList<>();
-		queue.add(root);
+        ArrayList<Integer> list = map.containsKey(level) ? map.get(level) : new ArrayList<>();
+        if (level % 2 == 0) {
+            list.add(root.val);
+        } else {
+            list.add(0, root.val);
+        }
 
-		ArrayList<Integer> resRow = new ArrayList<>();
-		List<TreeNode> nextNodes = new ArrayList<>();
+        map.put(level, list);
 
-		while (!queue.isEmpty()) {
-			TreeNode node = queue.poll();
-			
-			if (node.left != null)
-				nextNodes.add(node.left);
+        zigzagLevelOrder(root.left, map, level + 1);
+        zigzagLevelOrder(root.right, map, level + 1);
+    }
 
-			if (node.right != null)
-				nextNodes.add(node.right);
-			
-			if(level % 2 == 1)
-				resRow.add(node.val);
-			else
-				resRow.add(0, node.val);
+    /**
+     * Non-Recursive approach using queues
+     * Just do level traversal (left -> right), while adding to result check the level
+     * For odd levels - Add as is
+     * For even levels - Reverse the order by inserting at beginning
+     */
+    public ArrayList<ArrayList<Integer>> zigzagLevelOrder(TreeNode root) {
+        ArrayList<ArrayList<Integer>> result = new ArrayList<>();
+        int level = 1;
 
-			if (queue.isEmpty()) {
-				result.add(resRow);
-				queue.addAll(nextNodes);
-				resRow = new ArrayList<>();
-				nextNodes.clear();
-				level++;
-			}
-		}
+        if (root == null)
+            return result;
 
-		return result;
-	}
-	
-	ArrayList<ArrayList<Integer>> result = new ArrayList<>();
-	
-	public ArrayList<ArrayList<Integer>> zigzagLevelOrderRec(TreeNode root) {
-		helper(root, 1);
-		return result;
-	}
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
 
-	public void helper(TreeNode node, int level) {
-		if(node == null)
-			return;
-		
-		ArrayList<Integer> levelList = null;
-		if(result.size() < level){
-			levelList = new ArrayList<>();
-			result.add(levelList);
-		} else{
-			levelList = result.get(level-1);
-		}
-		
-		if(level % 2 == 1)
-			levelList.add(node.val);
-		else
-			levelList.add(0, node.val);
-		
-		helper(node.left, level+1);
-		helper(node.right, level+1);
-		
-	}
+        ArrayList<Integer> resRow = new ArrayList<>();
+        List<TreeNode> nextNodes = new ArrayList<>();
+
+        while (!queue.isEmpty()) {
+            TreeNode node = queue.poll();
+
+            if (node.left != null)
+                nextNodes.add(node.left);
+
+            if (node.right != null)
+                nextNodes.add(node.right);
+
+            if (level % 2 == 1)
+                resRow.add(node.val);
+            else
+                resRow.add(0, node.val);
+
+            if (queue.isEmpty()) {
+                result.add(resRow);
+                queue.addAll(nextNodes);
+                resRow = new ArrayList<>();
+                nextNodes.clear();
+                level++;
+            }
+        }
+
+        return result;
+    }
 }

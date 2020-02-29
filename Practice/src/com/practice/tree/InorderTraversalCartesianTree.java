@@ -1,86 +1,89 @@
 package com.practice.tree;
 
+import com.practice.tree.util.TreeNode;
+import org.junit.Test;
+
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+
 public class InorderTraversalCartesianTree {
 
-	public static void main(String[] args) {
-		InorderTraversalCartesianTree inst = new InorderTraversalCartesianTree();
-		Integer[] nums = { 5, 10, 40, 33, 30, 35, 50 };
-		TreeNode root = inst.buildTree(Arrays.asList(nums));
-		System.out.println(root);
+    @Test
+    public void test() {
+        assertEquals(1, 1);
+        Integer[] nums = {5, 10, 40, 33, 30, 35, 50};
+        System.out.println(buildTree(Arrays.asList(nums)));
+        System.out.println(buildTreeON(Arrays.asList(nums)));
+    }
 
-	}
+    public TreeNode buildTreeON(List<Integer> nums) {
+        TreeNode root = new TreeNode(nums.get(0));
 
-	public TreeNode buildTree(List<Integer> nums) {
-		return buildTree(nums, 0, nums.size() - 1);
-	}
+        TreeNode prev = root;
+        for (int i = 1; i < nums.size(); i++) {
+            TreeNode node = new TreeNode(nums.get(i));
+            if (nums.get(i) > root.val) {
+                node.left = root;
+                root = node;
+            } else if (nums.get(i) > prev.val) {
+                adjustRight(root, node);
+            } else {
+                prev.right = node;
+            }
 
-	private TreeNode buildTree(List<Integer> nums, int start, int end) {
+            prev = node;
+        }
 
-		TreeNode node = null;
+        return root;
+    }
 
-		int maxElementIndex = getIndexOfMax(nums, start, end);
-		if (maxElementIndex != -1) {
-			node = new TreeNode(nums.get(maxElementIndex));
-			node.left = buildTree(nums, start, maxElementIndex - 1);
-			node.right = buildTree(nums, maxElementIndex + 1, end);
-		}
+    private void adjustRight(TreeNode parent, TreeNode node) {
+        while (parent.right != null && parent.right.val > node.val) {
+            parent = parent.right;
+        }
 
-		return node;
-	}
+        node.left = parent.right;
+        parent.right = node;
+    }
 
-	private int getIndexOfMax(List<Integer> nums, int start, int end) {
+    /***
+     * Another approach to find max element and make it root and then recursively build left and right subtrees
+     * Worst case time complexity is O(n2) when tree is just like linked list
+     * Best case time complexity is O(NLogN) when tree is balanced
+     */
 
-		int max = 0;
-		int maxElementIndex = -1;
-		for (int i = start; i <= end; i++) {
-			if (maxElementIndex == -1 || nums.get(i) > max) {
-				max = nums.get(i);
-				maxElementIndex = i;
-			}
-		}
+    public TreeNode buildTree(List<Integer> nums) {
+        return buildTree(nums, 0, nums.size() - 1);
+    }
 
-		return maxElementIndex;
-	}
+    private TreeNode buildTree(List<Integer> nums, int start, int end) {
 
-	public TreeNode buildTreeV1(List<Integer> nums) {
+        TreeNode node = null;
 
-		TreeNode root = null;
-		TreeNode prevNode = null;
-		for (int i = 0; i < nums.size(); i++) {
-			TreeNode node = new TreeNode(nums.get(i));
+        int maxElementIndex = getIndexOfMax(nums, start, end);
+        if (maxElementIndex != -1) {
+            node = new TreeNode(nums.get(maxElementIndex));
+            node.left = buildTree(nums, start, maxElementIndex - 1);
+            node.right = buildTree(nums, maxElementIndex + 1, end);
+        }
 
-			if (root == null) {
-				root = node;
-			} else {
-				if (node.val > root.val) {
-					node.left = root;
-					root = node;
-				} else if (node.val < prevNode.val) {
-					prevNode.right = node;
-				} else {
-					TreeNode checkNode = root;
-					while (checkNode.right != null) {
-						if (checkNode.right.val < node.val) {
-							node.left = checkNode.right;
-							checkNode.right = node;
-							break;
-						}
-						checkNode = checkNode.right;
-					}
+        return node;
+    }
 
-					if (checkNode.right == null) {
-						checkNode.right = node;
-					}
-				}
-			}
+    private int getIndexOfMax(List<Integer> nums, int start, int end) {
 
-			prevNode = node;
-		}
+        int max = 0;
+        int maxElementIndex = -1;
+        for (int i = start; i <= end; i++) {
+            if (maxElementIndex == -1 || nums.get(i) > max) {
+                max = nums.get(i);
+                maxElementIndex = i;
+            }
+        }
 
-		return root;
-	}
+        return maxElementIndex;
+    }
 
 }

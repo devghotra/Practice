@@ -33,7 +33,7 @@ public class ArrangePersonHeightOrder_InterviewBit {
 			} else {
 				insert(root.left, p, frontCount);
 			}
-			root.value++; // Increase the current node value while descending
+			root.value++; // Increase the current SegmentNode value while descending
 							// left!
 		} else { // insert to the right
 			if (root.right == null) {

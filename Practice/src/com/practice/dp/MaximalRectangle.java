@@ -29,11 +29,11 @@ public class MaximalRectangle {
 	}
 
 	/*
-	 * At every node keep count of left continuous 1's
-	 * Max area at any node with 1 can be
+	 * At every SegmentNode keep count of left continuous 1's
+	 * Max area at any SegmentNode with 1 can be
 	 * - current count
-	 * - Go upwards and count min of count between starting node and current
-	 * node (in same col) and multiply by number of rows moved up to calculate
+	 * - Go upwards and count min of count between starting SegmentNode and current
+	 * SegmentNode (in same col) and multiply by number of rows moved up to calculate
 	 * area
 	 * - Keep going until you get 0 or index = 0
 	 */
